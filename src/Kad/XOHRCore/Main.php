@@ -168,17 +168,7 @@ class Main extends PluginBase implements Listener{
                         $sender->sendMessage("§eThe server is meant to bring together whoever is still there from the past, regardless of the various wars and drama that occured between them.");
                         $sender->sendMessage("§eDiscord Link: https://discord.gg/A64ZVAa");
                 break;
-                case "nv": // Not sure if this will work, linter says unexpected } else { on 168 yet 168 is under /info
-                if($sender->getEffect(Effect::NIGHT_VISION)) {
-                    $sender->sendMessage($this->fts . TF::DARK_RED . "NightVision turned off!");
-                    $sender->removeEffect(Effect::NIGHT_VISION);
-            } else {
-                $sender->sendMessage($this->fts . TF::GREEN . "NightVision turned on!");
-                $sender->addEffect(new EffectInstance(Effect::getEffectByName("NIGHT_VISION"), INT32_MAX, 1, false));
-            }
-        } else {
-            $sender->sendMessage($this->fts . TF::RED . "This command only works in game");
-            }
+	}
         return true;
-    }
+     }
 }
