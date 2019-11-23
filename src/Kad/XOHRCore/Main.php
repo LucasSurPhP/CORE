@@ -25,7 +25,7 @@ class Main extends PluginBase implements Listener{
     public function onEnable() {
         
         $this->saveResource('cfg.yml');
-	      $this->cfg = new Config($this->getDataFolder() . "cfg.yml", CONFIG::YAML);
+	$this->cfg = new Config($this->getDataFolder() . "cfg.yml", CONFIG::YAML);
         
         $this->fts = $this->cfg->get("prefix");
         $h = $this->cfg->getNested("hub");
