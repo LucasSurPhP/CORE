@@ -1,5 +1,6 @@
 <?php
 namespace Kad\XOHRCore;
+
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\{
         Command,
@@ -18,6 +19,7 @@ use pocketmine\event\{
         block\LeavesDecayEvent
 };
 use pocketmine\{Server, Player};
+
 class Main extends PluginBase implements Listener{
     private $fts, $hubPosition, $hhubPosition;
     public function onEnable() {
@@ -166,7 +168,7 @@ class Main extends PluginBase implements Listener{
                         $sender->sendMessage("§eThe server is meant to bring together whoever is still there from the past, regardless of the various wars and drama that occured between them.");
                         $sender->sendMessage("§eDiscord Link: https://discord.gg/A64ZVAa");
                 break;
-                case "nv":
+                case "nv": // Not sure if this will work, linter says unexpected } else { on 168 yet 168 is under /info
                 if($sender->getEffect(Effect::NIGHT_VISION)) {
                     $sender->sendMessage($this->fts . TF::DARK_RED . "NightVision turned off!");
                     $sender->removeEffect(Effect::NIGHT_VISION);
