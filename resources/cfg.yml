@@ -1,0 +1,25 @@
+prefix: "[XOXO]"
+hub:
+  world: "world"
+  x: 0
+  y: 65
+  z: 0
+hybridhub:
+  world: "TerraA"
+  x: 13
+  y: 72
+  z: 600
+  
+protected-worlds:
+  - world
+  - TerraA
+
+messages:
+  join: "%gamertag joined us!"
+  quit: "%gamertag left the game!"
+  death: "%gamertag died tragically.."
+  
+  cant-place: "You are not authorized to do so!"
+  cant-break: "You are not authorized to do so!\nAsk permission first."
+  
+  cmd-error: "%prefix : An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this"
