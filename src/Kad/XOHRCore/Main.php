@@ -14,76 +14,36 @@ use pocketmine\event\{
         player\PlayerQuitEvent,
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
-        block\BlockPlaceEvent,
-        block\BlockBreakEvent,
         block\LeavesDecayEvent
 };
 use pocketmine\{Server, Player};
 
 class Main extends PluginBase implements Listener{
-    private $fts, $hubPosition, $hhubPosition;
+    
+    public fts = "§7[§dX§aO§dX§aO§7]§r;
+    
     public function onEnable() {
-        
-        $this->saveResource('cfg.yml');
-	$this->cfg = new Config($this->getDataFolder() . "cfg.yml", CONFIG::YAML);
-        
-        $this->fts = $this->cfg->get("prefix");
-        $h = $this->cfg->getNested("hub");
-        $hh = $this->cfg->getNested("hybridhub");
-            
-        if(! Server::getInstance()->isLevelLoaded($h["world"]) ) Server::getInstance()->loadLevel($h["world"]);
-        if(! Server::getInstance()->isLevelLoaded($hh["world"]) ) Server::getInstance()->loadLevel($hh["world"]);
-            
-        $this->hubPosition = new Position($h["x"], $h["y"], $h["z"], Server::getInstance()->getLevelByName($h["world"]));
-        $this->hhubPosition = new Position($hh["x"], $hh["y"], $hh["z"], Server::getInstance()->getLevelByName($hh["world"]));
-     
-        Server::getInstance()->getPluginManager()->registerEvents($this, $this);
+    // Still need to redo this whole area
     }
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage(str_replace("%gamertag", $name, $this->cfg->getNested("messages.join")));
-        $player->teleport($this->hubPosition);
+     #  $event->setJoinMessage("");
+     #  $player->teleport($hub);
         $player->setGamemode(1);
     }   
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage(str_replace("%gamertag", $name, $this->cfg->getNested("messages.quit")));
+     #  $event->setQuitMessage();
     }
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage(str_replace("%gamertag", $name, $this->cfg->getNested("messages.death")));
+    #   $event->setDeathMessage("");
     }
     public function onRespawn(PlayerRespawnEvent $event) {
-        $event->setRespawnPosition($this->hubPosition);
-    } 
-    /**
-     * @param BlockPlaceEvent $event
-     * @priority HIGHEST
-     */
-    public function onPlace(BlockPlaceEvent $event){
-        $player = $event->getPlayer();
-        if(in_array($player->getLevel()->getFolderName(), $this->cfg->getNested("protected-worlds"))) {
-            if(!$player->hasPermission("verified.user")){
-                $event->getPlayer()->sendTip($this->cfg->getNested("messages.cant-place"));
-                $event->setCancelled();
-            }
-        }
-    }
-    /**
-     * @param BlockBreakEvent $event
-     * @priority HIGHEST
-     */
-    public function onBreak(BlockBreakEvent $event) {
-        $player = $event->getPlayer();
-        if(in_array($player->getLevel()->getFolderName(), $this->cfg->getNested("protected-worlds"))) {
-            if(!$player->hasPermission("verified.user")){
-                $event->getPlayer()->sendTip($this->cfg->getNested("messages.cant-break"));
-                $event->setCancelled();
-            }
-        }
+        $event->setRespawnPosition($hub);
     }
     /**
      * @param LeavesDecayEvent $event
