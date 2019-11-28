@@ -21,7 +21,7 @@ use pocketmine\{Server, Player};
 
 class Main extends PluginBase implements Listener{
     
-    public fts = "§7[§dX§aO§dX§aO§7]§r;
+    public fts = "§7[§dX§aO§dX§aO§7]§r";
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
