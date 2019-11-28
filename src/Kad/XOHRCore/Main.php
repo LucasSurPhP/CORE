@@ -46,7 +46,7 @@ class Main extends PluginBase implements Listener{
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setDeathMessage("§0• §7[§cX§7]§f" . $name");
+        $event->setDeathMessage("§0• §7[§cX§7]§f" . "$name");
     }
     public function onRespawn(PlayerRespawnEvent $event) {
         $world = $this->getServer()->getLevelByName("world");
