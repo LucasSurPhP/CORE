@@ -21,7 +21,7 @@ use pocketmine\{Server, Player};
 
 class Main extends PluginBase implements Listener{
     
-    public fts = "§7[§dX§aO§dX§aO§7]§r";
+    public $fts = "§7[§dX§aO§dX§aO§7]§r";
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -150,6 +150,19 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage("§f- §eUse Common Sense. Failure to do so will not exempt you from punishment.");
             }
         }
+        if($cmd->getName() == "nv") {
+            if($sender instanceof Player) {
+                if($sender->getEffect(Effect::NIGHT_VISION)) {
+                    $sender->sendMessage($this->fts . TF::DARK_RED . "NightVision turned off!");
+                    $sender->removeEffect(Effect::NIGHT_VISION);
+            } else {
+                $sender->sendMessage($this->fts . TF::GREEN . "NightVision turned on!");
+                $sender->addEffect(new EffectInstance(Effect::getEffectByName("NIGHT_VISION"), INT32_MAX, 1, false));
+            }
+        } else {
+            $sender->sendMessage($this->fts . TF::RED . "This command only works in game");
+            }  
+        }     
     return true;
     }
 }
