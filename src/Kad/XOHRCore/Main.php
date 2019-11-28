@@ -29,7 +29,7 @@ class Main extends PluginBase implements Listener{
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage("§0• §7[§b+§7]§f" . $name");
+        $event->setJoinMessage("§0• §7[§b+§7]§f" . "$name");
         $world = $this->getServer()->getLevelByName("world");
         $x = 210.5;
         $y = 68;
@@ -41,7 +41,7 @@ class Main extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setQuitMessage("§0• §7[§b-§7]§f" . $name");
+        $event->setQuitMessage("§0• §7[§b-§7]§f" . "$name");
     }
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
