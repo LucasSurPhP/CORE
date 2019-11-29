@@ -27,8 +27,8 @@ commands:
     aliases: ["lobby","spawn"]
   rules:
     description: Shows the servers Rules
-  info:
-    description: Shows the servers Information
+  nv:
+    description: Gives you NightVision
 
 permissions:
   xohrcore.gmc.use:
@@ -49,15 +49,3 @@ permissions:
   xohrcore.night.use:
     description: NIGHT Command
     default: OP
-  rank.vip:
-    description: Allows VIP features
-    default: OP
-  rank.op:
-    description: Allows OP Join Features
-    default: OP
-  verified.user:
-    description: Allows Verified user Status
-    default: OP
-  hybrid.member:
-    description: A command for the mighty, rifting to the HyHub is crucial for our escapades
-    default: false
