@@ -26,6 +26,10 @@ class Main extends PluginBase implements Listener{
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
+    /**
+     * @param PlayerJoinEvent $event
+     * @priority HIGH
+     */
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
@@ -37,17 +41,29 @@ class Main extends PluginBase implements Listener{
         $pos = new Position($x, $y, $z, $world);
         $player->teleport($pos);
         $player->setGamemode(1);
-    }   
+    }
+    /**
+     * @param PlayerQuitEvent $event
+     * @priority HIGH
+     */   
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
         $event->setQuitMessage("§0• §7[§b-§7]§f" . "$name");
     }
+    /**
+     * @param PlayerDeathEvent $event
+     * @priority LOWEST
+     */
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
         $event->setDeathMessage("§0• §7[§cX§7]§f" . "$name");
     }
+    /**
+     * @param PlayerRespawnEvent $event
+     * @priority LOWEST
+     */
     public function onRespawn(PlayerRespawnEvent $event) {
         $world = $this->getServer()->getLevelByName("world");
         $x = 210.5;
