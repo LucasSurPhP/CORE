@@ -1,3 +1,4 @@
+
 name: Core
 main: Kad\XOHRCore\Main
 version: 2.1.4
@@ -49,3 +50,6 @@ permissions:
   xohrcore.night.use:
     description: NIGHT Command
     default: OP
+
+
+

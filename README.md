@@ -1,3 +1,4 @@
+
 # Rebooted XOXO High RolePlay Core
 
 ### Core and Listeners package for the rebooted server XOXO High RolePlay 3.0
@@ -11,3 +12,7 @@ This specification is in addition to the Apache 2.0 License, seen in [License.md
         <img src="https://img.shields.io/badge/chat-on%20discord-7289da.svg" alt="discord">
     </a>
 </div>
+
+# XOHR-Core
+Core for XOXO 3.0
+
