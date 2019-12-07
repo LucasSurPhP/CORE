@@ -15,9 +15,11 @@ use pocketmine\event\{
         player\PlayerQuitEvent,
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
-        block\LeavesDecayEvent
+        block\LeavesDecayEvent,
+      # level\ChunkLoadEvent,
 };
 use pocketmine\{Server, Player};
+use pocketmine\entity\{Effect, EffectInstance};
 
 class Main extends PluginBase implements Listener{
     
@@ -65,6 +67,7 @@ class Main extends PluginBase implements Listener{
      * @priority LOWEST
      */
     public function onRespawn(PlayerRespawnEvent $event) {
+        $player = $event->getPlayer();
         $world = $this->getServer()->getLevelByName("world");
         $x = 210.5;
         $y = 68;
@@ -80,6 +83,12 @@ class Main extends PluginBase implements Listener{
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
     }
+#   /**
+#    * @param ChunkLoadEvent $event
+#    * @priority HIGHEST
+#    */
+#   public function onChunkLoad(ChunkLoadEvent $event) {
+#   }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool
     {
         if($cmd->getName() == "gmc") {
