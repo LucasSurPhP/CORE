@@ -1,6 +1,6 @@
 name: Core
 main: Kad\XOHRCore\Main
-version: 2.0.3
+version: 2.1.4
 api: 3.0.0
 author: Jes'kad Ad'aryc#3845
 commands:
