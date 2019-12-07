@@ -8,7 +8,7 @@ use pocketmine\command\{
         CommandSender
 };
 use pocketmine\utils\TextFormat as TF;
-use pocketmine\world\Position;
+use pocketmine\level\Position;
 use pocketmine\event\{
         Listener,
         player\PlayerJoinEvent,
@@ -16,7 +16,7 @@ use pocketmine\event\{
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
         block\LeavesDecayEvent,
-      # world\ChunkLoadEvent,
+      # level\ChunkLoadEvent,
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
@@ -36,7 +36,7 @@ class Main extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         $event->setJoinMessage("§0• §7[§b+§7]§f" . "$name");
-        $world = $this->getServer()->getWorldByName("world");
+        $world = $this->getServer()->getLevelByName("world");
         $x = 210.5;
         $y = 68;
         $z = 90.5;
@@ -68,7 +68,7 @@ class Main extends PluginBase implements Listener{
      */
     public function onRespawn(PlayerRespawnEvent $event) {
         $player = $event->getPlayer();
-        $world = $this->getServer()->getWorldByName("world");
+        $world = $this->getServer()->getLevelByName("world");
         $x = 210.5;
         $y = 68;
         $z = 90.5;
@@ -134,7 +134,7 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "day") {
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.day.use")) {
-                    $sender->getWorld()->setTime(6000);
+                    $sender->getLevel()->setTime(6000);
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Day (6000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -144,7 +144,7 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "night") {
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.night.use")) {
-                    $sender->getWorld()->setTime(16000);
+                    $sender->getLevel()->setTime(16000);
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Night (16000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -153,7 +153,7 @@ class Main extends PluginBase implements Listener{
         }
         if($cmd->getName() == "hub") {
             if($sender instanceof Player) {
-                $level = $this->getServer()->getWorldByName("world");
+                $level = $this->getServer()->getLevelByName("world");
                 $x = 210.5;
                 $y = 68;
                 $z = 90.5;
