@@ -3,8 +3,7 @@
 
 ### Core and Listeners package for the rebooted server XOXO High RolePlay 3.0
 
-Copying of this program is not allowed unless permission is granted from the Repository Owner.
-This specification is in addition to the Apache 2.0 License, seen in [License.md](https://github.com/LegoFan48737/XOHR-Core/blob/master/LICENSE)
+Copying, Forking, Editing, or otherwise doing anything besides Using this program is not allowed unless permission is granted from the Repository Owner.
 
 ### Discord
 <div align="center">
