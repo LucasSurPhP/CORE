@@ -20,6 +20,7 @@ use pocketmine\event\{
         player\PlayerInteractEvent
 };
 use pocketmine\{Server, Player};
+use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
 use pocketmine\tile\Sign;
 
