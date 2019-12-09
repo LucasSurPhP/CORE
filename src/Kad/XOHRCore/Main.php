@@ -17,9 +17,11 @@ use pocketmine\event\{
         player\PlayerRespawnEvent,
         block\LeavesDecayEvent,
       # level\ChunkLoadEvent,
+        player\PlayerInteractEvent
 };
 use pocketmine\{Server, Player};
-use pocketmine\entity\{Effect, EffectInstance};
+use pocketmine\math\Vector3;
+use pocketmine\tile\Sign;
 
 class Main extends PluginBase implements Listener{
     
@@ -89,6 +91,28 @@ class Main extends PluginBase implements Listener{
 #    */
 #   public function onChunkLoad(ChunkLoadEvent $event) {
 #   }
+    public function onInteract(PlayerInteractEvent $event){
+        if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
+            $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
+            if(!($sign instanceof Sign)){
+                return;
+            }
+            $sign = $sign->getText();
+            if($sign[0]=='[WORLD]'){
+                if(empty($sign[1]) !== true){
+                    $mapname = $sign[1];
+                    $event->getPlayer()->sendMessage("[SignPortal] Preparing world '".$mapname."'");
+                    //Prevents most crashes
+                    if(Server::getInstance()->loadLevel($mapname) != false){
+                        $event->getPlayer()->sendMessage("[SignPortal] Teleporting...");
+                        $event->getPlayer()->teleport(Server::getInstance()->getLevelByName($mapname)->getSafeSpawn());
+                    }else{
+                        $event->getPlayer()->sendMessage("[SignPortal] World '".$mapname."' not found.");
+                    }
+                }
+            }
+        }
+    }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool
     {
         if($cmd->getName() == "gmc") {
