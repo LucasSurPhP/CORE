@@ -203,6 +203,110 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
             }
         }
+        if($cmd->getName() == "gryffindor") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Gryffindor Common Room");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "slytherin") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Slytherin Common Room");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "transfiguration") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Transfiguration Class");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "charms") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Charms Class");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "potions") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Potions Class");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "divination") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Divination Class");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "quidditch") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to the Quidditch Pitch");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        if($cmd->getName() == "hagrids") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Hagrids Hut");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
         // End of Hogwarts Commands :)
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
