@@ -189,6 +189,21 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
             }
         }
+        // Incoming area for Mega sized spam of Hogwarts Commands LOL
+        if($cmd->getName() == "hogwarts") {
+            if($sender instanceof Player) {
+                $level = $this->getServer()->getLevelByName("Hogwarts");
+                $x = 000;
+                $y = 000;
+                $z = 000;
+                $pos = new Position($x, $y, $z, $level);
+                $sender->teleport($pos);
+                $sender->sendMessage($this->fts . TF::GOLD . "Teleported to Hogwarts");
+            } else {
+                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
+            }
+        }
+        // End of Hogwarts Commands :)
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
                 $sender->sendMessage("§6§o§lXOXO High RolePlay Server Rules§r");
