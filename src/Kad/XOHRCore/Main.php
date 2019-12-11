@@ -193,9 +193,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "hogwarts") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2035.5;
+                $y = 121;
+                $z = 421.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Teleported to Hogwarts");
@@ -206,9 +206,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "gryffindor") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -1953.5;
+                $y = 132;
+                $z = 481.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Gryffindor Common Room");
@@ -219,9 +219,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "slytherin") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2114.5;
+                $y = 6;
+                $z = 486.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Slytherin Common Room");
@@ -232,9 +232,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "transfiguration") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2031.5;
+                $y = 132;
+                $z = 549.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Transfiguration Class");
@@ -245,9 +245,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "charms") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2031.5;
+                $y = 132;
+                $z = 565.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Charms Class");
@@ -258,9 +258,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "potions") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2029.5;
+                $y = 27;
+                $z = 535.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Potions Class");
@@ -268,15 +268,15 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
             }
         }
-        if($cmd->getName() == "divination") {
+        if($cmd->getName() == "astronomy") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -2000.5;
+                $y = 205;
+                $z = 546.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
-                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Divination Class");
+                $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Astronomy Class");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
             }
@@ -284,9 +284,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "quidditch") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -1829.5;
+                $y = 81;
+                $z = 761.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to the Quidditch Pitch");
@@ -297,9 +297,9 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "hagrids") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("Hogwarts");
-                $x = 000;
-                $y = 000;
-                $z = 000;
+                $x = -1700.5;
+                $y = 71;
+                $z = 373.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Hagrids Hut");
