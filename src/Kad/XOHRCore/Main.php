@@ -189,6 +189,11 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
             }
         }
+        if($cmd->getName() == "clearinv") {
+            if($sender instanceof Player) {
+                $sender->getInventory()->clearAll();
+            }
+        }
         // Incoming area for Mega sized spam of Hogwarts Commands LOL
         if($cmd->getName() == "hogwarts") {
             if($sender instanceof Player) {
