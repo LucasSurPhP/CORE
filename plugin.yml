@@ -21,8 +21,29 @@ commands:
     description: Changes the time to Day in the world your in
     permission: xohrcore.day.use
   night:
-    description: Changes the time to Night in the world your in
+    description: Changes the time to Night in the world you're in
     permission: xohrcore.night.use
+  clearinv:
+    description: Clears you're Inventory
+    aliases: ["invclear"]
+  hogwarts:
+    description: Apparates to Hogwarts School for Witchcraft and Wizardry
+  gryffindor:
+    description: Apparates to Gryffindor Common Room
+  slytherin:
+    description: Apparates to Slytherin Common Room
+  transfiguration:
+    description: Apparates to Transfiguration Class
+  charms:
+    description: Apparates to Charms Class
+  potions:
+    description: Apparates to Potions Class
+  astronomy:
+    description: Apparates to the Astronomy Tower
+  quidditch:
+    description: Apparates to the Quidditch Pitch
+  hagrids:
+    description: Apparates to Hagrids Hut
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
