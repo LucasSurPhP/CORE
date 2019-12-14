@@ -9,6 +9,25 @@ use pocketmine\command\{
 };
 use pocketmine\utils\TextFormat as TF;
 use pocketmine\level\Position;
+use pocketmine\level\sound\{
+        AnvilBreakSound,
+        AnvilFallSound,
+        AnvilUseSound,
+        BlazeShootSound,
+        ClickSound,
+        DoorBumpSound,
+        DoorCrashSound,
+        DoorSound,
+        EndermanTeleportSound,
+        FizzSound,
+        GenericSound,
+        GhastShootSound,
+        GhastSound,
+        LaunchSound,
+        PopSound,
+        Sound
+        
+};
 use pocketmine\event\{
         Listener,
         player\PlayerJoinEvent,
@@ -46,6 +65,7 @@ class Main extends PluginBase implements Listener{
         $pos = new Position($x, $y, $z, $world);
         $player->teleport($pos);
         $player->setGamemode(1);
+        $player->getLevel()->addSound(new FizzSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
     /**
      * @param PlayerQuitEvent $event
@@ -63,6 +83,7 @@ class Main extends PluginBase implements Listener{
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
+        $player->getLevel()->addSound(new GhastSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
         $event->setDeathMessage("§0• §7[§cX§7]§f" . "$name");
     }
     /**
@@ -78,6 +99,7 @@ class Main extends PluginBase implements Listener{
         $pos = new Position($x, $y, $z, $world);
         $player->teleport($pos);
         $player->setGamemode(1);
+        $player->getLevel()->addSound(new FizzSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
     /**
      * @param LeavesDecayEvent $event
@@ -119,6 +141,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.gmc.use")) {
                     $sender->setGamemode(1);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to creative!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");    
@@ -129,6 +152,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.gms.use")) {
                     $sender->setGamemode(0);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Survival!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -139,6 +163,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.gma.use")) {
                     $sender->setGamemode(2);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Adventure!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -149,6 +174,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.gmspc.use")) {
                     $sender->setGamemode(3);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Spectator!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -159,6 +185,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.day.use")) {
                     $sender->getLevel()->setTime(6000);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Day (6000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -169,6 +196,7 @@ class Main extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("xohrcore.night.use")) {
                     $sender->getLevel()->setTime(16000);
+                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Night (16000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -183,6 +211,7 @@ class Main extends PluginBase implements Listener{
                 $z = 90.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Teleported to Hub");
                 $sender->setGamemode(1);
             } else {
@@ -192,6 +221,7 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "clearinv") {
             if($sender instanceof Player) {
                 $sender->getInventory()->clearAll();
+                $sender->getLevel()->addSound(new GhastSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
             }
         }
         // Incoming area for Mega sized spam of Hogwarts Commands LOL
@@ -203,6 +233,7 @@ class Main extends PluginBase implements Listener{
                 $z = 421.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Teleported to Hogwarts");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -216,6 +247,7 @@ class Main extends PluginBase implements Listener{
                 $z = 481.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Gryffindor Common Room");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -229,6 +261,7 @@ class Main extends PluginBase implements Listener{
                 $z = 486.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Slytherin Common Room");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -242,6 +275,7 @@ class Main extends PluginBase implements Listener{
                 $z = 549.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Transfiguration Class");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -255,6 +289,7 @@ class Main extends PluginBase implements Listener{
                 $z = 565.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Charms Class");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -268,6 +303,7 @@ class Main extends PluginBase implements Listener{
                 $z = 535.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Potions Class");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -281,6 +317,7 @@ class Main extends PluginBase implements Listener{
                 $z = 546.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Astronomy Class");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -294,6 +331,7 @@ class Main extends PluginBase implements Listener{
                 $z = 761.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to the Quidditch Pitch");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -307,6 +345,7 @@ class Main extends PluginBase implements Listener{
                 $z = 373.5;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
+                $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                 $sender->sendMessage($this->fts . TF::GOLD . "Apparated to Hagrids Hut");
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please contact Jes'kad Ad'aryc#3845 on Discord to report this");
@@ -321,6 +360,7 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage("§f- §eNo cursing. (Censoring words is allowed.)");
                 $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms");
                 $sender->sendMessage("§f- §eUse Common Sense. Failure to do so will not exempt you from punishment.");
+                $sender->getLevel()->addSound(new FizzSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
             }
         }
         if($cmd->getName() == "nv") {
