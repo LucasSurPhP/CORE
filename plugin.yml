@@ -1,7 +1,7 @@
 name: Core
 main: Kad\XOHRCore\Main
 api: 3.0.0
-version: 2.4.2
+version: 2.5.0
 load: POSTWORLD
 author: Jes'kad Ad'aryc#3845
 commands:
@@ -49,6 +49,8 @@ commands:
     aliases: ["lobby","spawn"]
   rules:
     description: Shows the servers Rules
+  testcore:
+    description: Is a useless piece of clunk that is used for testing purposes only
   nv:
     description: Gives you NightVision
 
