@@ -11,19 +11,19 @@ use pocketmine\utils\TextFormat as TF;
 use pocketmine\level\Position;
 use pocketmine\level\sound\{
         AnvilBreakSound,
-        AnvilFallSound,
-        AnvilUseSound,
+        AnvilFallSound,     
+        AnvilUseSound,      // This is the standard Ding/Chime
         BlazeShootSound,
-        ClickSound,
+        ClickSound,        // Standard Click like when opening Inventory
         DoorBumpSound,
-        DoorCrashSound,
+        DoorCrashSound,    // ???
         DoorSound,
-        EndermanTeleportSound,
+        EndermanTeleportSound,   // Similar to the Portal
         FizzSound,
-        GenericSound,
-        GhastShootSound,
-        GhastSound,
-        LaunchSound,
+        GenericSound,    // ???
+        GhastShootSound,   // Think a rush of flame
+        GhastSound,     // That Cat Shriek thingy
+        LaunchSound,   // Arrows?
         PopSound,
         Sound
 };
@@ -34,7 +34,6 @@ use pocketmine\event\{
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
         block\LeavesDecayEvent,
-      # level\ChunkLoadEvent,
         player\PlayerInteractEvent
 };
 use pocketmine\{Server, Player};
@@ -107,12 +106,6 @@ class Main extends PluginBase implements Listener{
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
     }
-#   /**
-#    * @param ChunkLoadEvent $event
-#    * @priority HIGHEST
-#    */
-#   public function onChunkLoad(ChunkLoadEvent $event) {
-#   }
     public function onInteract(PlayerInteractEvent $event){
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
