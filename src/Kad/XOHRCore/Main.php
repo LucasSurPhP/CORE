@@ -26,7 +26,6 @@ use pocketmine\level\sound\{
         LaunchSound,
         PopSound,
         Sound
-        
 };
 use pocketmine\event\{
         Listener,
@@ -361,6 +360,11 @@ class Main extends PluginBase implements Listener{
                 $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms");
                 $sender->sendMessage("§f- §eUse Common Sense. Failure to do so will not exempt you from punishment.");
                 $sender->getLevel()->addSound(new FizzSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+            }
+        }
+        if($cmd->getName() == "testcore") {
+            if($sender instanceof Player) {
+                $sender->sendMessage($this->fts . "• This is a test command that is used to test new shet. Ignore it please :)");
             }
         }
         if($cmd->getName() == "nv") {
