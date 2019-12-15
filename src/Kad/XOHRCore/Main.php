@@ -106,6 +106,10 @@ class Main extends PluginBase implements Listener{
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
     }
+    /**
+     * @param PlayerInteractEvent $event
+     * @priority LOWEST
+     */
     public function onInteract(PlayerInteractEvent $event){
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
