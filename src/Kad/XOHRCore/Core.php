@@ -367,7 +367,20 @@ class Core extends PluginBase implements Listener{
         if($cmd->getName() == "info") {
             if($sender instanceof Player) {
                 $name = $sender->getName();
-                // Working on research for stuff here
+                $viewdist = $this->getServer()->getAllowedViewDistance();
+                $defaultworld = $this->getServer()->getDefaultLevel();
+                $apiversion = $this->getServer()->getApiVersion();
+                $defaultgm = $this->getServer()->getDefaultGamemode();
+                $pmversion = $this->getServer()->getPocketMineVersion();
+                $tps = $this->getServer()->getTicksPerSecond();
+                $sender->sendMessage("§d§lServer Status (Secondary Information)");
+                $sender->sendMessage("§d§l§o• Requested by:§e " . $name . "§d§l§o•");
+                $sender->sendMessage("§bView Distance: " . $viewdist);
+                $sender->sendMessage("§bDefault World: " . $defaultworld);
+                $sender->sendMessage("§bAPI Version: " . $apiversion);
+                $sender->sendMessage("§bDefault Gamemode: " . $defaultgm);
+                $sender->sendMessage("§bPocketMine-MP Version: " . $pmversion);
+                $sender->sendMessage("§bTPS: " . $tps);
             }
         }
         if($cmd->getName() == "nv") {
