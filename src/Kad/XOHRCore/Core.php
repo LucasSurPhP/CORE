@@ -41,7 +41,7 @@ use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
 use pocketmine\tile\Sign;
 
-class Main extends PluginBase implements Listener{
+class Core extends PluginBase implements Listener{
     
     public $fts = "§7[§dX§aO§dX§aO§7]§r";
     
@@ -106,6 +106,10 @@ class Main extends PluginBase implements Listener{
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
     }
+    /**
+     * @param PlayerInteractEvent $event
+     * @priority LOWEST
+     */
     public function onInteract(PlayerInteractEvent $event){
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
@@ -358,6 +362,25 @@ class Main extends PluginBase implements Listener{
         if($cmd->getName() == "testcore") {
             if($sender instanceof Player) {
                 $sender->sendMessage($this->fts . "• This is a test command that is used to test new shet. Ignore it please :)");
+            }
+        }
+        if($cmd->getName() == "serverinfo") {
+            if($sender instanceof Player) {
+                $name = $sender->getName();
+                $viewdist = $this->getServer()->getAllowedViewDistance();
+                $defaultworld = $this->getServer()->getDefaultLevel();
+                $apiversion = $this->getServer()->getApiVersion();
+                $defaultgm = $this->getServer()->getDefaultGamemode();
+                $pmversion = $this->getServer()->getPocketMineVersion();
+                $tps = $this->getServer()->getTicksPerSecond();
+                $sender->sendMessage("§d§lServer Status (Secondary Information)");
+                $sender->sendMessage("§d§l§o• Requested by:§e " . $name . "§d§l§o•");
+                $sender->sendMessage("§bView Distance: " . $viewdist);
+                $sender->sendMessage("§bDefault World: " . $defaultworld);
+                $sender->sendMessage("§bAPI Version: " . $apiversion);
+                $sender->sendMessage("§bDefault Gamemode: " . $defaultgm);
+                $sender->sendMessage("§bPocketMine-MP Version: " . $pmversion);
+                $sender->sendMessage("§bTPS: " . $tps);
             }
         }
         if($cmd->getName() == "nv") {
