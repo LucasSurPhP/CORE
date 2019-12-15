@@ -364,7 +364,7 @@ class Core extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . "• This is a test command that is used to test new shet. Ignore it please :)");
             }
         }
-        if($cmd->getName() == "info") {
+        if($cmd->getName() == "serverinfo") {
             if($sender instanceof Player) {
                 $name = $sender->getName();
                 $viewdist = $this->getServer()->getAllowedViewDistance();
