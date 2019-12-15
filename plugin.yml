@@ -51,6 +51,8 @@ commands:
     description: Shows the servers Rules
   testcore:
     description: Is a useless piece of clunk that is used for testing purposes only
+  serverinfo:
+    description: Shows Secondary Server Information
   nv:
     description: Gives you NightVision
 
