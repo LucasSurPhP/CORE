@@ -364,6 +364,12 @@ class Core extends PluginBase implements Listener{
                 $sender->sendMessage($this->fts . "• This is a test command that is used to test new shet. Ignore it please :)");
             }
         }
+        if($cmd->getName() == "info") {
+            if($sender instanceof Player) {
+                $name = $sender->getName();
+                // Working on research for stuff here
+            }
+        }
         if($cmd->getName() == "nv") {
             if($sender instanceof Player) {
                 if($sender->getEffect(Effect::NIGHT_VISION)) {
