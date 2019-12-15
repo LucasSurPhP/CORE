@@ -41,7 +41,7 @@ use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
 use pocketmine\tile\Sign;
 
-class Main extends PluginBase implements Listener{
+class Core extends PluginBase implements Listener{
     
     public $fts = "§7[§dX§aO§dX§aO§7]§r";
     
