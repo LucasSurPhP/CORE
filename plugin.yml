@@ -1,77 +1,55 @@
 name: Core
-main: Kad\XOHRCore\Core
+main: Kad\Core\Core
 api: 3.11.1
-version: 2.5.3
+version: 3.0.0
 load: POSTWORLD
 author: KadTheHunter
 commands:
   gmc:
     description: Changes your gamemode to Creative
-    permission: xohrcore.gmc.use
+    permission: core.gmc.use
   gms:
     description: Changes your gamemode to Survival
-    permission: xohrcore.gms.use
+    permission: core.gms.use
   gma:
     description: Changes your gamemode to Adventure
-    permission: xohrcore.gma.use
+    permission: core.gma.use
   gmspc:
     description: Changes your gamemode to Spectator
-    permission: xohrcore.gmspc.use
+    permission: core.gmspc.use
   day:
     description: Changes the time to Day in the world your in
-    permission: xohrcore.day.use
+    permission: core.day.use
   night:
     description: Changes the time to Night in the world you're in
-    permission: xohrcore.night.use
+    permission: core.night.use
   clearinv:
     description: Clears you're Inventory
     aliases: ["invclear"]
-  hogwarts:
-    description: Apparates to Hogwarts School for Witchcraft and Wizardry
-  gryffindor:
-    description: Apparates to Gryffindor Common Room
-  slytherin:
-    description: Apparates to Slytherin Common Room
-  transfiguration:
-    description: Apparates to Transfiguration Class
-  charms:
-    description: Apparates to Charms Class
-  potions:
-    description: Apparates to Potions Class
-  astronomy:
-    description: Apparates to the Astronomy Tower
-  quidditch:
-    description: Apparates to the Quidditch Pitch
-  hagrids:
-    description: Apparates to Hagrids Hut
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
   rules:
     description: Shows the servers Rules
-  testcore:
-    description: Is a useless piece of clunk that is used for testing purposes only
-  serverinfo:
-    description: Shows Secondary Server Information
   nv:
-    description: Gives you NightVision
+    description: Gives you Night Vision
 
 permissions:
-  xohrcore.gmc.use:
+  core.gmc.use:
     description: GMC Command
     default: OP
-  xohrcore.gms.use:
+  core.gms.use:
     description: GMS Command
     default: OP
-  xohrcore.gma.use:
+  core.gma.use:
     description: GMA Command
     default: OP
-  xohrcore.gmspc.use:
+  core.gmspc.use:
     description: GMSPC Command
     default: OP
-  xohrcore.day.use:
+  core.day.use:
     description: DAY Command
     default: OP
-  xohrcore.night.use:
+  core.night.use:
     description: NIGHT Command
     default: OP

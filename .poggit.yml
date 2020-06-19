@@ -1,7 +1,0 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/LegoFan48737/XOHR-Core
-branches:
-- master
-projects:
-  XOHR-Core:
-    path: ""
-...
