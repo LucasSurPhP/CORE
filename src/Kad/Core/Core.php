@@ -1,6 +1,6 @@
 <?php
 
-namespace Kad\XOHRCore;
+namespace Kad\Core;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\{
