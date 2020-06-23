@@ -112,19 +112,22 @@ class Core extends PluginBase implements Listener{
     public function onInteract(PlayerInteractEvent $event){
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
-            if(!($sign instanceof Sign)){
-                return;
-            }
-            $sign = $sign->getText();
-            if($sign[0]=='[WORLD]'){ // Update or remove this? What function would TSG have for a world teleport sign :thonking:
-                if(empty($sign[1]) !== true){
-                    $mapname = $sign[1];
-                    $event->getPlayer()->sendMessage($this->fts . " Preparing world '".$mapname."'");
-                    if(Server::getInstance()->loadLevel($mapname) != false){
-                        $event->getPlayer()->sendMessage($this->fts . " Teleporting...");
-                        $event->getPlayer()->teleport(Server::getInstance()->getLevelByName($mapname)->getSafeSpawn());
-                    }else{
-                        $event->getPlayer()->sendMessage($this->fts . " World '".$mapname."' not found.");
+            $player = $event->getplayer();
+            if($player->hasPermission("core.worldsign.use")) {
+                if(!($sign instanceof Sign)){
+                    return;
+                }
+                $sign = $sign->getText();
+                if($sign[0]=='[WORLD]'){ 
+                    if(empty($sign[1]) !== true){
+                        $mapname = $sign[1];
+                        $event->getPlayer()->sendMessage($this->fts . " Preparing world '".$mapname."'");
+                        if(Server::getInstance()->loadLevel($mapname) != false){
+                            $event->getPlayer()->sendMessage($this->fts . " Teleporting...");
+                            $event->getPlayer()->teleport(Server::getInstance()->getLevelByName($mapname)->getSafeSpawn());
+                        }else{
+                            $event->getPlayer()->sendMessage($this->fts . " World '".$mapname."' not found.");
+                        }
                     }
                 }
             }
