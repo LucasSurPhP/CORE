@@ -43,7 +43,7 @@ use pocketmine\tile\Sign;
 
 class Core extends PluginBase implements Listener{
     
-    public $fts = "§7[§6TheStompingGrounds§7]§r";
+    public $fts = "§7[§6TheSandbox§7]§r";
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -72,7 +72,7 @@ class Core extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setQuitMessage("§0• §7[§b-§7]§f" . "$name");
+        $event->setQuitMessage("§0• §7[§c-§7]§f" . "$name");
     }
     /**
      * @param PlayerDeathEvent $event
@@ -82,7 +82,7 @@ class Core extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         $player->getLevel()->addSound(new GhastSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
-        $event->setDeathMessage("§0• §7[§cX§7]§f" . "$name");
+        $event->setDeathMessage("§0• §7[§6X§7]§f" . "$name");
     }
     /**
      * @param PlayerRespawnEvent $event
