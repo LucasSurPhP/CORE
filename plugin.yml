@@ -53,3 +53,6 @@ permissions:
   core.night.use:
     description: NIGHT Command
     default: OP
+  core.worldsign.use:
+    description: Allows usage of [WORLD] Signs
+    default: OP
