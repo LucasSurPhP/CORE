@@ -139,7 +139,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.gmc.use")) {
                     $sender->setGamemode(1);
-                    $sender->getLevel()->addSound(new FizzSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to creative!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");    
@@ -150,7 +150,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.gms.use")) {
                     $sender->setGamemode(0);
-                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Survival!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
@@ -161,7 +161,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.gma.use")) {
                     $sender->setGamemode(2);
-                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Adventure!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
@@ -172,7 +172,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.gmspc.use")) {
                     $sender->setGamemode(3);
-                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Spectator!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
@@ -183,7 +183,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.day.use")) {
                     $sender->getLevel()->setTime(6000);
-                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Day (6000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
@@ -194,7 +194,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.night.use")) {
                     $sender->getLevel()->setTime(16000);
-                    $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Night (16000) in your world!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
@@ -219,7 +219,7 @@ class Core extends PluginBase implements Listener{
         if($cmd->getName() == "clearinv") {
             if($sender instanceof Player) {
                 $sender->getInventory()->clearAll();
-                $sender->getLevel()->addSound(new AnvilUseSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
             } else {
                 $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
             }
