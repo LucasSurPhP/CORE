@@ -95,7 +95,7 @@ class Core extends PluginBase implements Listener{
         $y = 68;
         $z = 0;
         $pos = new Position($x, $y, $z, $world);
-        $player->teleport($pos);
+        $player->setRespawnPosition($pos);
         $player->setGamemode(1);
     }
     /**
