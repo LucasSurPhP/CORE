@@ -95,7 +95,7 @@ class Core extends PluginBase implements Listener{
         $y = 68;
         $z = 0;
         $pos = new Position($x, $y, $z, $world);
-        $player->setRespawnPosition($pos);
+        $event->setRespawnPosition($pos);
         $player->setGamemode(1);
     }
     /**
@@ -139,7 +139,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player) {
                 if($sender->hasPermission("core.gmc.use")) {
                     $sender->setGamemode(1);
-                    $sender->getLevel()->addSound(new GenericSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                    $sender->getLevel()->addSound(new FizzSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
                     $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to creative!");
                 } else {
                     $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");    
