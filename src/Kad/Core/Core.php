@@ -56,12 +56,6 @@ class Core extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         $event->setJoinMessage("§0• §7[§b+§7]§f" . "$name");
-        $world = $this->getServer()->getLevelByName("world");
-        $x = 0;
-        $y = 68;
-        $z = 0;
-        $pos = new Position($x, $y, $z, $world);
-        $player->teleport($pos);
         $player->setGamemode(1);
         $player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
@@ -140,9 +134,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.gmc.use")) {
                     $sender->setGamemode(1);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to creative!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to creative!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");    
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");    
                 }
             }
         }
@@ -151,9 +145,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.gms.use")) {
                     $sender->setGamemode(0);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Survival!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Survival!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
                 }
             }
         }
@@ -162,9 +156,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.gma.use")) {
                     $sender->setGamemode(2);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Adventure!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Adventure!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
                 }
             }
         }
@@ -173,9 +167,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.gmspc.use")) {
                     $sender->setGamemode(3);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Your gamemode has been set to Spectator!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Spectator!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
                 }
             }
         }
@@ -184,9 +178,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.day.use")) {
                     $sender->getLevel()->setTime(6000);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Day (6000) in your world!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Set the time to Day (6000) in your world!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
                 }
             }
         }
@@ -195,9 +189,9 @@ class Core extends PluginBase implements Listener{
                 if($sender->hasPermission("core.night.use")) {
                     $sender->getLevel()->setTime(16000);
                     $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                    $sender->sendMessage($this->fts . TF::GREEN . "Set the time to Night (16000) in your world!");
+                    $sender->sendMessage($this->fts . TF::GREEN . " Set the time to Night (16000) in your world!");
                 } else {
-                    $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
                 }
             }
         }
@@ -210,10 +204,10 @@ class Core extends PluginBase implements Listener{
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-                $sender->sendMessage($this->fts . TF::GOLD . "Teleported to Hub");
+                $sender->sendMessage($this->fts . TF::GOLD . " Teleported to Hub");
                 $sender->setGamemode(1);
             } else {
-                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
             }
         }
         if($cmd->getName() == "clearinv") {
@@ -221,7 +215,7 @@ class Core extends PluginBase implements Listener{
                 $sender->getInventory()->clearAll();
                 $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
             } else {
-                $sender->sendMessage($this->fts . TF::RED . "An error has occurred. Please notify a server administrator about this.");
+                $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
             }
         }
         if($cmd->getName() == "rules") {
@@ -238,14 +232,14 @@ class Core extends PluginBase implements Listener{
         if($cmd->getName() == "nv") {
             if($sender instanceof Player) {
                 if($sender->getEffect(Effect::NIGHT_VISION)) {
-                    $sender->sendMessage($this->fts . TF::DARK_RED . "Night Vision turned off!");
+                    $sender->sendMessage($this->fts . TF::DARK_RED . " Night Vision turned off!");
                     $sender->removeEffect(Effect::NIGHT_VISION);
             } else {
-                $sender->sendMessage($this->fts . TF::GREEN . "Night Vision turned on!");
+                $sender->sendMessage($this->fts . TF::GREEN . " Night Vision turned on!");
                 $sender->addEffect(new EffectInstance(Effect::getEffectByName("NIGHT_VISION"), INT32_MAX, 1, false));
             }
         } else {
-            $sender->sendMessage($this->fts . TF::RED . "This command only works in game");
+            $sender->sendMessage($this->fts . TF::RED . " This command only works in game");
             }  
         }     
     return true;
