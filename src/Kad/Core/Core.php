@@ -34,16 +34,14 @@ use pocketmine\event\{
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
         block\LeavesDecayEvent,
-        player\PlayerInteractEvent
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
-use pocketmine\tile\Sign;
 
 class Core extends PluginBase implements Listener{
     
-    public $fts = "§7[§6TheSandbox§7]§r";
+    public $fts = "§7[§6§lChaos§7]§r";
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -55,7 +53,7 @@ class Core extends PluginBase implements Listener{
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage("§0• §7[§b+§7]§f" . "$name");
+        $event->setJoinMessage("§bWelcome to §6§lChaos§r§f" . "$name");
         $player->setGamemode(1);
         $player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
@@ -66,7 +64,7 @@ class Core extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setQuitMessage("§0• §7[§c-§7]§f" . "$name");
+        $event->setQuitMessage("$name" . "§bcouldn't handle the §6§lChaos§r§f F.");
     }
     /**
      * @param PlayerDeathEvent $event
@@ -98,34 +96,6 @@ class Core extends PluginBase implements Listener{
      */
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
-    }
-    /**
-     * @param PlayerInteractEvent $event
-     * @priority LOWEST
-     */
-    public function onInteract(PlayerInteractEvent $event){
-        if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){
-            $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());
-            $player = $event->getplayer();
-            if($player->hasPermission("core.worldsign.use")) {
-                if(!($sign instanceof Sign)){
-                    return;
-                }
-                $sign = $sign->getText();
-                if($sign[0]=='[WORLD]'){ 
-                    if(empty($sign[1]) !== true){
-                        $mapname = $sign[1];
-                        $event->getPlayer()->sendMessage($this->fts . " Preparing world '".$mapname."'");
-                        if(Server::getInstance()->loadLevel($mapname) != false){
-                            $event->getPlayer()->sendMessage($this->fts . " Teleporting...");
-                            $event->getPlayer()->teleport(Server::getInstance()->getLevelByName($mapname)->getSafeSpawn());
-                        }else{
-                            $event->getPlayer()->sendMessage($this->fts . " World '".$mapname."' not found.");
-                        }
-                    }
-                }
-            }
-        }
     }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool
     {
@@ -221,12 +191,10 @@ class Core extends PluginBase implements Listener{
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
                 $sender->sendMessage("§6§o§lServer Rules§r");
-                $sender->sendMessage("§f- §eNo Griefing");
-                $sender->sendMessage("§f- §eNo Advertising");
-                $sender->sendMessage("§f- §eNo NSFW");
-                $sender->sendMessage("§f- §eNo cursing. (Censoring words is allowed.)");
-                $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms");
-                $sender->sendMessage("§f- §eUse Common Sense. Failure to do so will not exempt you from punishment.");
+                $sender->sendMessage("§f- §eNo purposefully crashing the server.");
+                $sender->sendMessage("§f- §eNo banning the Owner. Doing so will put you on the §cpermanent§e banlist");
+                $sender->sendMessage("§f= §ePlease do not reveal other players information. This will also get you put on the permanent banlist.");
+                $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
             }
         }
         if($cmd->getName() == "nv") {
