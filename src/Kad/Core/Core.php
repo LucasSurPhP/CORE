@@ -53,7 +53,7 @@ class Core extends PluginBase implements Listener{
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage("§bWelcome to §6§lChaos§r§f" . "$name");
+        $event->setJoinMessage("§bWelcome to §6§lChaos§r§f " . "$name");
         $player->setGamemode(1);
         $player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
@@ -64,7 +64,7 @@ class Core extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setQuitMessage("$name" . "§bcouldn't handle the §6§lChaos§r§f F.");
+        $event->setQuitMessage("$name" . " §bcouldn't handle the §6§lChaos§r§b. §fF.");
     }
     /**
      * @param PlayerDeathEvent $event
@@ -74,7 +74,7 @@ class Core extends PluginBase implements Listener{
         $player = $event->getPlayer();
         $name = $player->getName();
         $player->getLevel()->addSound(new GhastSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
-        $event->setDeathMessage("§0• §7[§6X§7]§f" . "$name");
+        $event->setDeathMessage("$name" . " §bwas slain in battle.");
     }
     /**
      * @param PlayerRespawnEvent $event
@@ -83,9 +83,9 @@ class Core extends PluginBase implements Listener{
     public function onRespawn(PlayerRespawnEvent $event) {
         $player = $event->getPlayer();
         $world = $this->getServer()->getLevelByName("world");
-        $x = 0;
-        $y = 68;
-        $z = 0;
+        $x = 324;
+        $y = 60;
+        $z = 166;
         $pos = new Position($x, $y, $z, $world);
         $event->setRespawnPosition($pos);
         $player->setGamemode(1);
@@ -168,9 +168,9 @@ class Core extends PluginBase implements Listener{
         if($cmd->getName() == "hub") {
             if($sender instanceof Player) {
                 $level = $this->getServer()->getLevelByName("world");
-                $x = 0;
-                $y = 68;
-                $z = 0;
+                $x = 324;
+                $y = 60;
+                $z = 166;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
@@ -190,10 +190,10 @@ class Core extends PluginBase implements Listener{
         }
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
-                $sender->sendMessage("§6§o§lServer Rules§r");
+                $sender->sendMessage("§6§o§lChaos Guidelines§r");
                 $sender->sendMessage("§f- §eNo purposefully crashing the server.");
                 $sender->sendMessage("§f- §eNo banning the Owner. Doing so will put you on the §cpermanent§e banlist");
-                $sender->sendMessage("§f= §ePlease do not reveal other players information. This will also get you put on the permanent banlist.");
+                $sender->sendMessage("§f- §ePlease do not reveal other players information. This will also get you put on the permanent banlist.");
                 $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
             }
         }
