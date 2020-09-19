@@ -33,7 +33,8 @@ use pocketmine\event\{
         player\PlayerQuitEvent,
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
-        block\LeavesDecayEvent,
+        player\PlayerInteractEvent
+        block\LeavesDecayEvent
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
@@ -86,6 +87,34 @@ class Core extends PluginBase implements Listener{
      */
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
+    }
+    /**	
+     * @param PlayerInteractEvent $event	
+     * @priority LOWEST	
+     */	
+    public function onInteract(PlayerInteractEvent $event){	
+        if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){	
+            $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());	
+            $player = $event->getplayer();	
+            if($player->hasPermission("core.worldsign.use")) {	
+                if(!($sign instanceof Sign)){	
+                    return;	
+                }	
+                $sign = $sign->getText();	
+                if($sign[0]=='[WORLD]'){ 	
+                    if(empty($sign[1]) !== true){	
+                        $mapname = $sign[1];	
+                        $event->getPlayer()->sendMessage($this->fts . " Preparing world '".$mapname."'");	
+                        if(Server::getInstance()->loadLevel($mapname) != false){	
+                            $event->getPlayer()->sendMessage($this->fts . " Teleporting...");	
+                            $event->getPlayer()->teleport(Server::getInstance()->getLevelByName($mapname)->getSafeSpawn());	
+                        }else{	
+                            $event->getPlayer()->sendMessage($this->fts . " World '".$mapname."' not found.");	
+                        }	
+                    }	
+                }	
+            }	
+        }	
     }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool
     {
