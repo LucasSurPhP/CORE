@@ -39,6 +39,7 @@ use pocketmine\event\{
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
+use pocketmine\tile\Sign;
 
 class Core extends PluginBase implements Listener{
     
