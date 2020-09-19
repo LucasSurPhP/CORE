@@ -41,7 +41,7 @@ use pocketmine\math\Vector3;
 
 class Core extends PluginBase implements Listener{
     
-    public $fts = "§7[§6§lChaos§7]§r";
+    public $fts = "§7[§4§lK§r§7]§r";
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -53,7 +53,7 @@ class Core extends PluginBase implements Listener{
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setJoinMessage("§bWelcome to §6§lChaos§r§f " . "$name");
+        $event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
         $player->setGamemode(1);
         $player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
     }
@@ -64,17 +64,7 @@ class Core extends PluginBase implements Listener{
     public function onQuit(PlayerQuitEvent $event) {
         $player = $event->getPlayer();
         $name = $player->getName();
-        $event->setQuitMessage("$name" . " §bcouldn't handle the §6§lChaos§r§b. §fF.");
-    }
-    /**
-     * @param PlayerDeathEvent $event
-     * @priority LOWEST
-     */
-    public function onDeath(PlayerDeathEvent $event) {
-        $player = $event->getPlayer();
-        $name = $player->getName();
-        $player->getLevel()->addSound(new GhastSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
-        $event->setDeathMessage("$name" . " §bwas slain in battle.");
+        $event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
     }
     /**
      * @param PlayerRespawnEvent $event
@@ -82,10 +72,10 @@ class Core extends PluginBase implements Listener{
      */
     public function onRespawn(PlayerRespawnEvent $event) {
         $player = $event->getPlayer();
-        $world = $this->getServer()->getLevelByName("world");
-        $x = 324;
-        $y = 60;
-        $z = 166;
+        $world = $this->getServer()->getLevelByName("plots");
+        $x = 34;
+        $y = 46;
+        $z = 34;
         $pos = new Position($x, $y, $z, $world);
         $event->setRespawnPosition($pos);
         $player->setGamemode(1);
@@ -167,10 +157,10 @@ class Core extends PluginBase implements Listener{
         }
         if($cmd->getName() == "hub") {
             if($sender instanceof Player) {
-                $level = $this->getServer()->getLevelByName("world");
-                $x = 324;
-                $y = 60;
-                $z = 166;
+                $level = $this->getServer()->getLevelByName("plots");
+                $x = 34;
+                $y = 46;
+                $z = 34;
                 $pos = new Position($x, $y, $z, $level);
                 $sender->teleport($pos);
                 $sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
@@ -190,10 +180,13 @@ class Core extends PluginBase implements Listener{
         }
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
-                $sender->sendMessage("§6§o§lChaos Guidelines§r");
-                $sender->sendMessage("§f- §eNo purposefully crashing the server.");
-                $sender->sendMessage("§f- §eNo banning the Owner. Doing so will put you on the §cpermanent§e banlist");
-                $sender->sendMessage("§f- §ePlease do not reveal other players information. This will also get you put on the permanent banlist.");
+                $sender->sendMessage("§6§o§lServer Ruless§r");
+                $sender->sendMessage("§f- §eNo advertising in any way, shape or form. §c(§4Ban§c)");
+                $sender->sendMessage("§f- §eNo NSFW/18+ Builds, Chat or Content. §c(§4Ban§c)");
+                $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms. §c(§4Kick, then Ban§c)");
+                $sender->sendMessage("§f- §eNo Drama. We've all had enough of it elsewhere, please do not bring it here. §c(§4Kick, then Ban§c)");
+                $sender->sendMessage("§f- §eNo Lavacasts/Other excessive usages of Lava and Water. Generators are fine. §c(§4Plot Reset for minor transgressions, otherwise Ban§c)");
+                $sender->sendMessage("§f- §eUse common sense. If it doesn't seem like a good idea, don't do it!§e");
                 $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
             }
         }
