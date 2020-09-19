@@ -33,7 +33,7 @@ use pocketmine\event\{
         player\PlayerQuitEvent,
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
-        player\PlayerInteractEvent
+        player\PlayerInteractEvent,
         block\LeavesDecayEvent
 };
 use pocketmine\{Server, Player};
