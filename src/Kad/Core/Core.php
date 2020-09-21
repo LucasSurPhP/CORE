@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Kad\Core;
 
@@ -40,6 +41,8 @@ use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
 use pocketmine\math\Vector3;
 use pocketmine\tile\Sign;
+use function array_diff;
+use function scandir;
 
 class Core extends PluginBase implements Listener{
     
@@ -47,6 +50,11 @@ class Core extends PluginBase implements Listener{
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+            foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
+                        if($this->getServer()->loadLevel($levelName)){
+				$this->getLogger()->debug("Successfully loaded §6${levelName}");
+                        }
+            }
     }
     /**
      * @param PlayerJoinEvent $event
