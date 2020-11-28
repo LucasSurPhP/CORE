@@ -1,7 +1,7 @@
 name: Core
 main: Kad\Core\Core
 api: 3.11.1
-version: 3.0.0
+version: 3.0.2
 load: POSTWORLD
 author: KadTheHunter
 commands:
@@ -37,10 +37,10 @@ commands:
 permissions:
   core.gmc.use:
     description: GMC Command
-    default: true
+    default: OP
   core.gms.use:
     description: GMS Command
-    default: true
+    default: OP
   core.gma.use:
     description: GMA Command
     default: OP
