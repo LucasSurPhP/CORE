@@ -35,7 +35,9 @@ use pocketmine\event\{
         player\PlayerDeathEvent,
         player\PlayerRespawnEvent,
         player\PlayerInteractEvent,
-        block\LeavesDecayEvent
+        block\LeavesDecayEvent,
+	entity\EntityLevelChangeEvent
+
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance};
@@ -97,10 +99,23 @@ class Core extends PluginBase implements Listener{
     public function onDecay(LeavesDecayEvent $event) {
         $event->setCancelled(true);
     }
+    /**
+     * @param EntityLevelChangeEvent $event
+     * @priority HIGH
+     */ 
+    public function onEntityLevelChange(EntityLevelChangeEvent $event) {
+	$entity = $event->getEntity();
+        if($entity instanceof Player) {
+		$level = $event->getTarget()->getName();
+		if($level === 'plots') {
+			$entity->setGamemode(1);
+		}
+	}
+    }
     /**	
      * @param PlayerInteractEvent $event	
      * @priority LOWEST	
-     */	
+     */
     public function onInteract(PlayerInteractEvent $event){	
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){	
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());	
