@@ -28,6 +28,7 @@ use pocketmine\level\sound\{
         PopSound,
         Sound
 };
+use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\event\{
         Listener,
         player\PlayerJoinEvent,
@@ -36,12 +37,13 @@ use pocketmine\event\{
         player\PlayerRespawnEvent,
         player\PlayerInteractEvent,
         block\LeavesDecayEvent,
-	entity\EntityLevelChangeEvent
-
+	    entity\EntityLevelChangeEvent
 };
 use pocketmine\{Server, Player};
-use pocketmine\entity\{Effect, EffectInstance};
+use pocketmine\entity\{Effect, EffectInstance, Entity};
+use pocketmine\network\mcpe\protocol\{AddActorPacket, PlaySoundPacket};
 use pocketmine\math\Vector3;
+use pocketmine\block\Block;
 use pocketmine\tile\Sign;
 use function array_diff;
 use function scandir;
@@ -92,6 +94,35 @@ class Core extends PluginBase implements Listener{
         $event->setRespawnPosition($pos);
         $player->setGamemode(1);
     }
+    public function onDeath(PlayerDeathEvent $event) :bool{
+		if (!$event->getPlayer()->hasPermission("core.lightning.use")){
+			return false;
+		}
+		$this->Lightning($event->getPlayer());
+		return true;
+	}
+    public function Lightning(Player $player) :void{
+		$light = new AddActorPacket();
+		$light->type = "minecraft:lightning_bolt";
+		$light->entityRuntimeId = Entity::$entityCount++;
+		$light->metadata = [];
+		$light->motion = null;
+		$light->yaw = $player->getYaw();
+		$light->pitch = $player->getPitch();
+		$light->position = new Vector3($player->getX(), $player->getY(), $player->getZ());
+		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $light);
+		$block = $player->getLevel()->getBlock($player->getPosition()->floor()->down());
+		$particle = new DestroyBlockParticle(new Vector3($player->getX(), $player->getY(), $player->getZ()), $block);
+		$player->getLevel()->addParticle($particle);
+		$sound = new PlaySoundPacket();
+		$sound->soundName = "ambient.weather.thunder";
+		$sound->x = $player->getX();
+		$sound->y = $player->getY();
+		$sound->z = $player->getZ();
+		$sound->volume = 1;
+		$sound->pitch = 1;
+		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
+	}
     /**
      * @param LeavesDecayEvent $event
      * @priority HIGHEST
@@ -229,6 +260,15 @@ class Core extends PluginBase implements Listener{
                 $sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
             } else {
                 $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+            }
+        }
+        if($cmd->getName() == "lightning") {
+            if($sender instanceof Player) {
+                if($sender->hasPermission("core.lightning.use")) {
+                    $this->Lightning($sender);
+                } else {
+                    $sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+                }
             }
         }
         if($cmd->getName() == "rules") {
