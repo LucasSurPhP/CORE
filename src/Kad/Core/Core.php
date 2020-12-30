@@ -41,6 +41,7 @@ use pocketmine\event\{
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance, Entity};
+use pocketmine\Item\{Item, ItemFactory, ItemIds};
 use pocketmine\network\mcpe\protocol\{AddActorPacket, PlaySoundPacket};
 use pocketmine\math\Vector3;
 use pocketmine\block\Block;
@@ -271,9 +272,23 @@ class Core extends PluginBase implements Listener{
                 }
             }
         }
+        if($cmd->getname() == "guide") {
+            if($sender instanceof Player) {
+                $item = Item::get(Item::WRITTEN_BOOK, 0, 1);
+                $item->setTitle(TF::GREEN . TF::UNDERLINE . "Information Booklet");
+                $item->setPageText(0, "§l§a   KYT Server Guide\n\n§b[KYT] MC hangout Server is a big place!\n§bThere's lots of commands, builds, features and things to see and do.\n§bIn the following pages you'll be introduced to them!");
+                $item->setPageText(1, "§bKYT is made up of 2 key components: §ePlots §b& §aMinigames.\n§ePlots §bis the main world and is accessible by the following commands:\n§e/hub\n§e/lobby\n§e/spawn\n\n§aMinigames §bare accessible via the §aMinigames Board §bat Hub. ");
+                $item->setPageText(2, "§bTo get started in Plots, do the following:\n§e/p auto\n§e/p claim\n§bThen, enjoy building!\n§bYou can claim unlimited plots, and all plots are Size 69x69 (nice!).");
+                $item->setPageText(3, "§bPlayers have access to many commands, which are listed below:\n§e/day §0- §bSets it to Day\n§e/night §0- §bSets it to Night\n§e/lay §0- §bLays you down\n§e/nick §0- §bSets your Nickname\n§e/vehicles §0- §bSpawns a Car\n§e/weapon §0- §bSpawns a Gun");
+                $item->setPageText(4, "§bVIPs have access to even more things!\n§e/lock §0- §bLocks a door or chest\n§e/ln §0- §bSummons lightning\n§e/give §0- §bGives you Items\n§bVIP can be obtained through Giveaways and other Events on Discord.");
+                $item->setPageText(5, "§bMore Plot commands can be found on the §ePlots Board §bat Hub, as well as §dFeatured Plots§b!");
+                $item->setAuthor("Kaddicus");
+                $sender->getInventory()->addItem($item);
+            }
+        }
         if($cmd->getName() == "rules") {
             if($sender instanceof Player) {
-                $sender->sendMessage("§6§o§lServer Ruless§r");
+                $sender->sendMessage("§6§o§lServer Rules§r");
                 $sender->sendMessage("§f- §eNo advertising in any way, shape or form. §c(§4Ban§c)");
                 $sender->sendMessage("§f- §eNo NSFW/18+ Builds, Chat or Content. §c(§4Ban§c)");
                 $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms. §c(§4Kick, then Ban§c)");

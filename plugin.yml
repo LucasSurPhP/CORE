@@ -34,6 +34,8 @@ commands:
     description: Summons lightning to you
     permission: core.lightning.use
     aliases: ["ln", "lightn"]
+  guide:
+    description: Gives you a guidebook
   rules:
     description: Shows the servers Rules
   nv:
