@@ -41,7 +41,7 @@ use pocketmine\event\{
 };
 use pocketmine\{Server, Player};
 use pocketmine\entity\{Effect, EffectInstance, Entity};
-use pocketmine\Item\{Item, ItemFactory, ItemIds};
+use pocketmine\item\{Item, ItemFactory, ItemIds, WrittenBook};
 use pocketmine\network\mcpe\protocol\{AddActorPacket, PlaySoundPacket};
 use pocketmine\math\Vector3;
 use pocketmine\block\Block;
