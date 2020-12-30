@@ -275,13 +275,13 @@ class Core extends PluginBase implements Listener{
         if($cmd->getname() == "guide") {
             if($sender instanceof Player) {
                 $item = Item::get(Item::WRITTEN_BOOK, 0, 1);
-                $item->setTitle(TF::GREEN . TF::UNDERLINE . "Information Booklet");
-                $item->setPageText(0, "§l§a   KYT Server Guide\n\n§b[KYT] MC hangout Server is a big place!\n§bThere's lots of commands, builds, features and things to see and do.\n§bIn the following pages you'll be introduced to them!");
-                $item->setPageText(1, "§bKYT is made up of 2 key components: §ePlots §b& §aMinigames.\n§ePlots §bis the main world and is accessible by the following commands:\n§e/hub\n§e/lobby\n§e/spawn\n\n§aMinigames §bare accessible via the §aMinigames Board §bat Hub. ");
-                $item->setPageText(2, "§bTo get started in Plots, do the following:\n§e/p auto\n§e/p claim\n§bThen, enjoy building!\n§bYou can claim unlimited plots, and all plots are Size 69x69 (nice!).");
-                $item->setPageText(3, "§bPlayers have access to many commands, which are listed below:\n§e/day §0- §bSets it to Day\n§e/night §0- §bSets it to Night\n§e/lay §0- §bLays you down\n§e/nick §0- §bSets your Nickname\n§e/vehicles §0- §bSpawns a Car\n§e/weapon §0- §bSpawns a Gun");
-                $item->setPageText(4, "§bVIPs have access to even more things!\n§e/lock §0- §bLocks a door or chest\n§e/ln §0- §bSummons lightning\n§e/give §0- §bGives you Items\n§bVIP can be obtained through Giveaways and other Events on Discord.");
-                $item->setPageText(5, "§bMore Plot commands can be found on the §ePlots Board §bat Hub, as well as §dFeatured Plots§b!");
+                $item->setTitle(TF::GREEN . "Guidebook");
+                $item->setPageText(0, "§l§4   KYT Server Guide§r\n\n§3[KYT] MC hangout Server is a big place!\n§3There's lots of commands, builds, features and things to see and do.\n§3In the following pages you'll be introduced to them!");
+                $item->setPageText(1, "§3KYT is made up of 2 key components: §6Plots §3& §2Minigames.\n\n§6Plots §bis the main world and is accessible by the following commands:\n\n§5/hub\n§5/lobby\n§5/spawn\n\n§2Minigames §3are accessible via the §2Minigames Board §3at Hub. ");
+                $item->setPageText(2, "§3To get started in Plots, do the following:\n\n§5/p auto\n§5/p claim\n\n§3Then, enjoy building!\n\n§3You can claim unlimited plots, and all plots are size 69x69 (nice!).");
+                $item->setPageText(3, "§3Players have access to many commands, which are listed below:\n\n§5/day §0- §3Sets it to Day\n§5/night §0- §3Sets it to Night\n§5/lay §0- §3Lays you down\n§5/nick §0- §3Sets your Nickname\n§5/vehicles §0- §3Spawns a Car\n§5/weapon §0- §3Spawns a Gun");
+                $item->setPageText(4, "§3VIPs have access to even more things!\n\n§5/lock §0- §3Locks a door or chest\n§5/ln §0- §3Summons lightning\n§5/give §0- §3Gives you Items\n\n§5VIP can be obtained through Giveaways and other Events on Discord.");
+                $item->setPageText(5, "§3More Plot commands as well as §dFeatured Plots§3 can be found on the §6Plots Board §3at Hub!");
                 $item->setAuthor("Kaddicus");
                 $sender->getInventory()->addItem($item);
             }
