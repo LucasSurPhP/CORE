@@ -153,11 +153,11 @@ class Core extends PluginBase implements Listener{
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());	
             $player = $event->getplayer();
             $sign = $sign->getText();
-            if($sign[0]=='[KitPvP]'){
+            if($sign[0]=='§b[§eKitPvP§b]'){
                 $level = $this->getServer()->getLevelByName("games");
-                $x = 2000;
-                $y = 44;
-                $z = 2000;
+                $x = 2076.98;
+                $y = 51.18;
+                $z = 2054.97;
                 $pos = new Position($x, $y, $z, $level);
                 $player->teleport($pos);
                 $player->getLevel()->addSound(new EndermanTeleportSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
