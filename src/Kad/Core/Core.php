@@ -163,7 +163,7 @@ class Core extends PluginBase implements Listener{
                 $z = 2000;
                 $pos = new Position($x, $y, $z, $level);
                 $player->teleport($pos);
-                $player->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                $player->getLevel()->addSound(new EndermanTeleportSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
                 $player->sendMessage($this->fts . TF::GOLD . " Teleported to Kit PvP");
                 $player->setGamemode(0);
             }
