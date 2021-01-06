@@ -154,9 +154,6 @@ class Core extends PluginBase implements Listener{
             $player = $event->getplayer();
             $sign = $sign->getText();
             if($sign[0]=='[KitPvP]'){
-                if(!($sign instanceof Sign)){	
-                    return;	
-                }
                 $level = $this->getServer()->getLevelByName("games");
                 $x = 2000;
                 $y = 44;
@@ -168,9 +165,6 @@ class Core extends PluginBase implements Listener{
                 $player->setGamemode(0);
             }
             elseif($sign[0]=='[WORLD]'){ 	
-                if(!($sign instanceof Sign)){	
-                    return;
-                }
                 if($player->hasPermission("core.worldsign.use")) {
                     if(empty($sign[1]) !== true){	
                         $mapname = $sign[1];	
