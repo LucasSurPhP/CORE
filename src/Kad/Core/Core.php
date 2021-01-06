@@ -151,13 +151,27 @@ class Core extends PluginBase implements Listener{
     public function onInteract(PlayerInteractEvent $event){	
         if($event->getBlock()->getID() == 323 || $event->getBlock()->getID() == 63 || $event->getBlock()->getID() == 68){	
             $sign = $event->getPlayer()->getLevel()->getTile($event->getBlock());	
-            $player = $event->getplayer();	
-            if($player->hasPermission("core.worldsign.use")) {	
+            $player = $event->getplayer();
+            $sign = $sign->getText();
+            if($sign[0]=='[KitPvP]'){
                 if(!($sign instanceof Sign)){	
                     return;	
-                }	
-                $sign = $sign->getText();	
-                if($sign[0]=='[WORLD]'){ 	
+                }
+                $level = $this->getServer()->getLevelByName("games");
+                $x = 2000;
+                $y = 44;
+                $z = 2000;
+                $pos = new Position($x, $y, $z, $level);
+                $player->teleport($pos);
+                $player->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+                $player->sendMessage($this->fts . TF::GOLD . " Teleported to Kit PvP");
+                $player->setGamemode(0);
+            }
+            elseif($sign[0]=='[WORLD]'){ 	
+                if(!($sign instanceof Sign)){	
+                    return;
+                }
+                if($player->hasPermission("core.worldsign.use")) {
                     if(empty($sign[1]) !== true){	
                         $mapname = $sign[1];	
                         $event->getPlayer()->sendMessage($this->fts . " Preparing world '".$mapname."'");	
@@ -168,6 +182,8 @@ class Core extends PluginBase implements Listener{
                             $event->getPlayer()->sendMessage($this->fts . " World '".$mapname."' not found.");	
                         }	
                     }	
+                }else{
+                    $event->getPlayer->sendMessage($this->fts . " §cYou do not have permission to use this sign.");
                 }	
             }	
         }	
