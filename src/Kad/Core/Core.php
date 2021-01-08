@@ -153,7 +153,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_DROWNING) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.")
+                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_LAVA) {
@@ -192,7 +192,7 @@ class Core extends PluginBase implements Listener{
                     $damager = $cause->getDamager();
                     if($damager instanceof Player) {
                         foreach($this->getServer()->getOnlinePlayers() as $p) {
-                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.")
+                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
                         }
                     }
                 }
@@ -225,7 +225,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_SUICIDE) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.")
+                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_SUFFOCATION) {
@@ -250,7 +250,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_DROWNING) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.")
+                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_LAVA) {
@@ -289,7 +289,7 @@ class Core extends PluginBase implements Listener{
                     $damager = $cause->getDamager();
                     if($damager instanceof Player) {
                         foreach($this->getServer()->getOnlinePlayers() as $p) {
-                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.")
+                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
                         }
                     }
                 }
@@ -322,7 +322,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_SUICIDE) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.")
+                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_SUFFOCATION) {
@@ -347,7 +347,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_DROWNING) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.")
+                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_LAVA) {
@@ -386,7 +386,7 @@ class Core extends PluginBase implements Listener{
                     $damager = $cause->getDamager();
                     if($damager instanceof Player) {
                         foreach($this->getServer()->getOnlinePlayers() as $p) {
-                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.")
+                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
                         }
                     }
                 }
@@ -419,7 +419,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_SUICIDE) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.")
+                        $p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_SUFFOCATION) {
@@ -444,7 +444,7 @@ class Core extends PluginBase implements Listener{
                 }
                 elseif($event->getCause() === $event::CAUSE_DROWNING) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.")
+                        $p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
                     }
                 }
                 elseif($event->getCause() === $event::CAUSE_LAVA) {
@@ -483,7 +483,7 @@ class Core extends PluginBase implements Listener{
                     $damager = $cause->getDamager();
                     if($damager instanceof Player) {
                         foreach($this->getServer()->getOnlinePlayers() as $p) {
-                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.")
+                            $p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
                         }
                     }
                 }
