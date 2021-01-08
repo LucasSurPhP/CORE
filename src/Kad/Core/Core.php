@@ -104,7 +104,7 @@ class Core extends PluginBase implements Listener{
         $pos = new Position($x, $y, $z, $world);
         $event->setRespawnPosition($pos);
         $player->setGamemode(2);
-        $player->sendMessage($this->fts . TF::GOLD '§lBeep Boop... Blort?§r. Somehow you managed to get a respawn screen. Please contact a Staff Member about this.');
+        $player->sendMessage($this->fts . TF::GOLD . '§lBeep Boop... Blort?§r. Somehow you managed to get a respawn screen. Please contact a Staff Member about this.');
     }
     /**
      * @param EntityDamageEvent $event
@@ -118,8 +118,8 @@ class Core extends PluginBase implements Listener{
             if($victim->getLevel()->getFolderName() === 'plots') {
                 if($event->getCause() === $event::CAUSE_VOID) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
-                        $p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad.");
-                   }               
+                        $p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad."); 
+                    }              
                 }
                 elseif($event->getCause() === $event::CAUSE_FALL) {
                     foreach($this->getServer()->getOnlinePlayers() as $p) {
