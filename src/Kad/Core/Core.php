@@ -284,6 +284,7 @@ class Core extends PluginBase implements Listener{
         }
         if($cmd->getname() == "guide") {
             if($sender instanceof Player) {
+		/** @var WrittenBook $item */
                 $item = Item::get(Item::WRITTEN_BOOK, 0, 1);
                 $item->setTitle(TF::GREEN . "Guidebook");
                 $item->setPageText(0, "§l§4   KYT Server Guide§r\n\n§3[KYT] MC hangout Server is a big place!\n§3There's lots of commands, builds, features and things to see and do.\n§3In the following pages you'll be introduced to them!");
