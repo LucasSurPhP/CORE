@@ -117,6 +117,7 @@ class Core extends PluginBase implements Listener{
 	 */
 	// Ignore Minigame worlds such as Sumo/CTF as the Plugins for them handle necessary changes.
 	public function onDamage(EntityDamageEvent $event){
+        /** @var Player $victim */
 		$victim = $event->getEntity();
 		$cause = $victim->getLastDamageCause();
 		if($event->getFinalDamage() >= $victim->getHealth()){
