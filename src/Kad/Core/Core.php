@@ -104,7 +104,7 @@ class Core extends PluginBase implements Listener{
      */
     public function onDeath(PlayerDeathEvent $event) : bool{
         $level = $event->getPlayer()->getLevel();
-        $config = $this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml";
+        $config = new Config($this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml", CONFIG::YAML);
         $config->set("level", $level);
 		$config->save();
 		if(!$event->getPlayer()->hasPermission("core.lightning.use")){
@@ -120,7 +120,7 @@ class Core extends PluginBase implements Listener{
 	 */
 	public function onRespawn(PlayerRespawnEvent $event){
 		$player = $event->getPlayer();
-        $config = $this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml";
+        $config = new Config($this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml", CONFIG::YAML);
         $level = $config->get("level");
 		$event->setRespawnPosition($level->getSafeSpawn());
 	}
