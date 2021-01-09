@@ -23,7 +23,6 @@ use pocketmine\event\{
 	entity\EntityLevelChangeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerQuitEvent,
-	player\PlayerRespawnEvent,
 	player\PlayerDeathEvent
 };
 use pocketmine\item\{
@@ -43,7 +42,6 @@ use pocketmine\network\mcpe\protocol\{
 };
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
-use pocketmine\utils\Config;
 
 use function array_diff;
 use function scandir;
@@ -67,13 +65,6 @@ class Core extends PluginBase implements Listener{
 	 * @priority HIGH
 	 */
 	public function onJoin(PlayerJoinEvent $event){
-        @mkdir($this->getDataFolder());
-        @mkdir($this->getDataFolder() . "players/");
-        if(!file_exists($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml")){
-            $config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
-            $config->set("name", $event->getPlayer()->getName());
-            $config->save();
-        }
 		$player = $event->getPlayer();
 		$name = $player->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
@@ -103,26 +94,11 @@ class Core extends PluginBase implements Listener{
      * @priority HIGH
      */
     public function onDeath(PlayerDeathEvent $event) : bool{
-        $level = $event->getPlayer()->getLevel();
-        $config = new Config($this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml", CONFIG::YAML);
-        $config->set("level", $level);
-		$config->save();
 		if(!$event->getPlayer()->hasPermission("core.lightning.use")){
 			return false;
 		}
         $this->Lightning($event->getPlayer());
 		return true;
-	}
-	/**
-	 * @param PlayerRespawnEvent $event
-	 *
-	 * @priority HIGH
-	 */
-	public function onRespawn(PlayerRespawnEvent $event){
-		$player = $event->getPlayer();
-        $config = new Config($this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml", CONFIG::YAML);
-        $level = $config->get("level");
-		$event->setRespawnPosition($level->getSafeSpawn());
 	}
 	public function Lightning(Player $player) : void{
 		$light = new AddActorPacket();
@@ -166,13 +142,33 @@ class Core extends PluginBase implements Listener{
 		if($entity instanceof Player){
 			$level = $event->getTarget()->getName();
 			if($level === 'plots'){
-                $entity->setGamemode(1);
+				$entity->setGamemode(1);
+				$x = 0;
+				$y = 40;
+				$z = 0;
+				$level = $this->getServer()->getLevelByName("plots");
+				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'hub'){
 				$entity->setGamemode(2);
+				$x = 0;
+				$y = 40;
+				$z = 0;
+				$level = $this->getServer()->getLevelByName("hub");
+				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'kitpvp'){
 				$entity->setGamemode(0);
+				$x = 0;
+				$y = 40;
+				$z = 0;
+				$level = $this->getServer()->getLevelByName("kitpvp");
+				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'city'){
 				$entity->setGamemode(1);
+				$x = 0;
+				$y = 40;
+				$z = 0;
+				$level = $this->getServer()->getLevelByName("city");
+				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}
 		}
 	}
