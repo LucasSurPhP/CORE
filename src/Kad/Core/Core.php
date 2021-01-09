@@ -18,16 +18,13 @@ use pocketmine\entity\{
 	Entity
 };
 use pocketmine\event\{
-	block\LeavesDecayEvent,
-	entity\EntityDamageByBlockEvent,
-	entity\EntityDamageByEntityEvent,
-	entity\EntityDamageEvent,
-	entity\EntityLevelChangeEvent,
 	Listener,
-	player\PlayerDeathEvent,
+	block\LeavesDecayEvent,
+	entity\EntityLevelChangeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerQuitEvent,
-	player\PlayerRespawnEvent
+	player\PlayerRespawnEvent,
+	player\PlayerDeathEvent
 };
 use pocketmine\item\{
 	Item,
@@ -46,6 +43,7 @@ use pocketmine\network\mcpe\protocol\{
 };
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\utils\Config;
 
 use function array_diff;
 use function scandir;
@@ -69,6 +67,13 @@ class Core extends PluginBase implements Listener{
 	 * @priority HIGH
 	 */
 	public function onJoin(PlayerJoinEvent $event){
+        @mkdir($this->getDataFolder());
+        @mkdir($this->getDataFolder() . "players/");
+        if(!file_exists($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml")){
+            $config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
+            $config->set("name", $event->getPlayer()->getName());
+            $config->save();
+        }
 		$player = $event->getPlayer();
 		$name = $player->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
@@ -78,7 +83,7 @@ class Core extends PluginBase implements Listener{
 		$z = 0;
 		$pos = new Position($x, $y, $z, $level);
 		$player->teleport($pos);
-		$player->sendMessage($this->fts . TF::GOLD . " Teleported to Hub");
+		$player->sendMessage($this->fts . TF::GOLD . " Welcome to MC Hangout Server [KYT]!");
 		$player->setGamemode(2);
 		$player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
 	}
@@ -92,372 +97,34 @@ class Core extends PluginBase implements Listener{
 		$player = $event->getPlayer();
 		$name = $player->getName();
 		$event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
-	}
-
-	/**
-	 * @param PlayerRespawnEvent $event
-	 *
-	 * @priority LOWEST
-	 */
-	public function onRespawn(PlayerRespawnEvent $event){
-		$player = $event->getPlayer();
-		$world = $this->getServer()->getLevelByName("hub");
-		$x = 0;
-		$y = 40;
-		$z = 0;
-		$pos = new Position($x, $y, $z, $world);
-		$event->setRespawnPosition($pos);
-		$player->setGamemode(2);
-		$player->sendMessage($this->fts . TF::GOLD . '§lBeep Boop... Blort?§r. Somehow you managed to get a respawn screen. Please contact a Staff Member about this.');
-	}
-	/**
-	 * @param EntityDamageEvent $event
-	 *
-	 * @priority HIGH
-	 */
-	// Ignore Minigame worlds such as Sumo/CTF as the Plugins for them handle necessary changes.
-	public function onDamage(EntityDamageEvent $event){
-        /** @var Player $victim */
-		$victim = $event->getEntity();
-		$cause = $victim->getLastDamageCause();
-		if($event->getFinalDamage() >= $victim->getHealth()){
-			$event->setCancelled();
-			if($victim->getLevel()->getFolderName() === 'plots'){
-				if($event->getCause() === $event::CAUSE_VOID){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_FALL){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§6Gravity has a grudge against §e" . $victim);
-					}
-				}elseif($event->getCause() === $event::CAUSE_SUICIDE){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_SUFFOCATION){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was strangled by a... Block? Well, not unheard of...");
-					}
-				}elseif($event->getCause() === $event::CAUSE_MAGIC){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was slain by Black Magicks");
-					}
-				}elseif($event->getCause() === $event::CAUSE_FIRE){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 failed to extinguish themselves.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_FIRE_TICK){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was burned at the stake.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_DROWNING){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_LAVA){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 Took a §overy§r §6hot bath.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_BLOCK_EXPLOSION){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was incinerated in a giant explosion.");
-					}
-				}elseif($event->getCause() === $event::CAUSE_CUSTOM){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 randomly died and we have no clue why.");
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_ATTACK){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was murdered by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_PROJECTILE){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was shot by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_EXPLOSION){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
-					}
-				}
-			}elseif($cause instanceof EntityDamageByBlockEvent && $event->getCause() === $event::CAUSE_CONTACT){
-				if($cause->getDamager()->getID() === Block::CACTUS){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was impaled upon a Cactus.");
-					}
-				}
-			}
-			$victim->setHealth($victim->getMaxHealth());
-			$victim->setGamemode(1);
-			$level = $this->getServer()->getLevelByName('plots');
-			$x = 0;
-			$y = 40;
-			$z = 0;
-			$pos = new Position($x, $y, $z, $level);
-			$victim->teleport($pos);
-		}elseif($victim->getLevel()->getFolderName() === 'hub'){
-			if($event->getCause() === $event::CAUSE_VOID){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FALL){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§6Gravity has a grudge against §e" . $victim);
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUICIDE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUFFOCATION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was strangled by a... Block? Well, not unheard of...");
-				}
-			}elseif($event->getCause() === $event::CAUSE_MAGIC){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was slain by Black Magicks");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 failed to extinguish themselves.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE_TICK){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was burned at the stake.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_DROWNING){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_LAVA){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Took a §overy§r §6hot bath.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_BLOCK_EXPLOSION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was incinerated in a giant explosion.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_CUSTOM){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 randomly died and we have no clue why.");
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_ATTACK){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was murdered by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_PROJECTILE){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was shot by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_EXPLOSION){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
-					}
-				}
-			}elseif($cause instanceof EntityDamageByBlockEvent && $event->getCause() === $event::CAUSE_CONTACT){
-				if($cause->getDamager()->getID() === Block::CACTUS){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was impaled upon a Cactus.");
-					}
-				}
-			}
-			$victim->setHealth($victim->getMaxHealth());
-			$victim->setGamemode(2);
-			$level = $this->getServer()->getLevelByName('hub');
-			$x = 0;
-			$y = 40;
-			$z = 0;
-			$pos = new Position($x, $y, $z, $level);
-			$victim->teleport($pos);
-		}elseif($victim->getLevel()->getFolderName() === 'kitpvp'){
-			if($event->getCause() === $event::CAUSE_VOID){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FALL){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§6Gravity has a grudge against §e" . $victim);
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUICIDE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUFFOCATION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was strangled by a... Block? Well, not unheard of...");
-				}
-			}elseif($event->getCause() === $event::CAUSE_MAGIC){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was slain by Black Magicks");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 failed to extinguish themselves.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE_TICK){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was burned at the stake.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_DROWNING){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_LAVA){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Took a §overy§r §6hot bath.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_BLOCK_EXPLOSION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was incinerated in a giant explosion.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_CUSTOM){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 randomly died and we have no clue why.");
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_ATTACK){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was murdered by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_PROJECTILE){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was shot by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_EXPLOSION){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
-					}
-				}
-			}elseif($cause instanceof EntityDamageByBlockEvent && $event->getCause() === $event::CAUSE_CONTACT){
-				if($cause->getDamager()->getID() === Block::CACTUS){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was impaled upon a Cactus.");
-					}
-				}
-			}
-			$victim->setHealth($victim->getMaxHealth());
-			$victim->setGamemode(0);
-			$level = $this->getServer()->getLevelByName('kitpvp');
-			$x = 0;
-			$y = 40;
-			$z = 0;
-			$pos = new Position($x, $y, $z, $level);
-			$victim->teleport($pos);
-		}elseif($victim->getLevel()->getFolderName() === 'city'){
-			if($event->getCause() === $event::CAUSE_VOID){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 fell in the Void and died. How sad.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FALL){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§6Gravity has a grudge against §e" . $victim);
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUICIDE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 couldn't stand living anymore.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_SUFFOCATION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was strangled by a... Block? Well, not unheard of...");
-				}
-			}elseif($event->getCause() === $event::CAUSE_MAGIC){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was slain by Black Magicks");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 failed to extinguish themselves.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_FIRE_TICK){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was burned at the stake.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_DROWNING){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Dove underwater and forgot to breathe.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_LAVA){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 Took a §overy§r §6hot bath.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_BLOCK_EXPLOSION){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 was incinerated in a giant explosion.");
-				}
-			}elseif($event->getCause() === $event::CAUSE_CUSTOM){
-				foreach($this->getServer()->getOnlinePlayers() as $p){
-					$p->sendMessage("§e" . $victim . "§6 randomly died and we have no clue why.");
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_ATTACK){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was murdered by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_PROJECTILE){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was shot by §e " . $damager);
-					}
-				}
-			}elseif($cause instanceof EntityDamageByEntityEvent && $event->getCause() === $event::CAUSE_ENTITY_EXPLOSION){
-				$damager = $cause->getDamager();
-				if($damager instanceof Player){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was fragmented when §e " . $damager . "§6 quite literally exploded.");
-					}
-				}
-			}elseif($cause instanceof EntityDamageByBlockEvent && $event->getCause() === $event::CAUSE_CONTACT){
-				if($cause->getDamager()->getID() === Block::CACTUS){
-					foreach($this->getServer()->getOnlinePlayers() as $p){
-						$p->sendMessage("§e" . $victim . "§6 was impaled upon a Cactus.");
-					}
-				}
-			}
-			$victim->setHealth($victim->getMaxHealth());
-			$victim->setGamemode(1);
-			$level = $this->getServer()->getLevelByName('city');
-			$x = 0;
-			$y = 40;
-			$z = 0;
-			$pos = new Position($x, $y, $z, $level);
-			$victim->teleport($pos);
-		}
-	}
-
-	public function onDeath(PlayerDeathEvent $event) : bool{
+    }
+    /**
+     * @param PlayerDeathEvent $event
+     * 
+     * @priority HIGH
+     */
+    public function onDeath(PlayerDeathEvent $event) : bool{
+        $level = $event->getPlayer()->getLevel();
+        $config = $this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml";
+        $config->set("level", $level);
+		$config->save();
 		if(!$event->getPlayer()->hasPermission("core.lightning.use")){
 			return false;
 		}
-		$this->Lightning($event->getPlayer());
+        $this->Lightning($event->getPlayer());
 		return true;
 	}
-
+	/**
+	 * @param PlayerRespawnEvent $event
+	 *
+	 * @priority HIGH
+	 */
+	public function onRespawn(PlayerRespawnEvent $event){
+		$player = $event->getPlayer();
+        $config = $this->getDataFolder() . "players/" . $event->getPlayer()->getName() . ".yml";
+        $level = $config->get("level");
+		$event->setRespawnPosition($level->getSafeSpawn());
+	}
 	public function Lightning(Player $player) : void{
 		$light = new AddActorPacket();
 		$light->type = "minecraft:lightning_bolt";
@@ -500,7 +167,7 @@ class Core extends PluginBase implements Listener{
 		if($entity instanceof Player){
 			$level = $event->getTarget()->getName();
 			if($level === 'plots'){
-				$entity->setGamemode(1);
+                $entity->setGamemode(1);
 			}elseif($level === 'hub'){
 				$entity->setGamemode(2);
 			}elseif($level === 'kitpvp'){
@@ -580,15 +247,15 @@ class Core extends PluginBase implements Listener{
 		}
 		if($cmd->getName() == "hub"){
 			if($sender instanceof Player){
-				$level = $this->getServer()->getLevelByName("plots");
-				$x = 34;
-				$y = 46;
-				$z = 34;
+				$level = $this->getServer()->getLevelByName("hub");
+				$x = 0;
+				$y = 40;
+				$z = 0;
 				$pos = new Position($x, $y, $z, $level);
 				$sender->teleport($pos);
 				$sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 				$sender->sendMessage($this->fts . TF::GOLD . " Teleported to Hub");
-				$sender->setGamemode(1);
+				$sender->setGamemode(2);
 			}else{
 				$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
 			}
