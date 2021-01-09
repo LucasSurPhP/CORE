@@ -49,9 +49,6 @@ use function array_diff;
 use function scandir;
 
 class Core extends PluginBase implements Listener{
-
-	/** @var Config */
-	public $config;
 	
 	public $fts = "§7[§4§lK§r§7]§r";
 
@@ -73,7 +70,7 @@ class Core extends PluginBase implements Listener{
         @mkdir($this->getDataFolder());
         @mkdir($this->getDataFolder() . "players/");
         if(!file_exists($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml")){
-            $this->config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
+            $config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
             $config->set("name", $event->getPlayer()->getName());
             $config->save();
         }
