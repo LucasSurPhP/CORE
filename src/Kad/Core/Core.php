@@ -69,9 +69,9 @@ class Core extends PluginBase implements Listener{
 		$name = $player->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
 		$level = $this->getServer()->getLevelByName("hub");
-		$x = 0;
+		$x = -0.5;
 		$y = 40;
-		$z = 0;
+		$z = -0.5;
 		$pos = new Position($x, $y, $z, $level);
 		$player->teleport($pos);
 		$player->sendMessage($this->fts . TF::GOLD . " Welcome to MC Hangout Server [KYT]!");
@@ -122,7 +122,6 @@ class Core extends PluginBase implements Listener{
 		$sound->pitch = 1;
 		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
 	}
-
 	/**
 	 * @param LeavesDecayEvent $event
 	 *
@@ -143,30 +142,30 @@ class Core extends PluginBase implements Listener{
 			$level = $event->getTarget()->getName();
 			if($level === 'plots'){
 				$entity->setGamemode(1);
-				$x = 0;
-				$y = 40;
-				$z = 0;
+				$x = 34.5;
+				$y = 46;
+				$z = 34.5;
 				$level = $this->getServer()->getLevelByName("plots");
 				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'hub'){
 				$entity->setGamemode(2);
-				$x = 0;
+				$x = -0.5;
 				$y = 40;
-				$z = 0;
+				$z = -0.5;
 				$level = $this->getServer()->getLevelByName("hub");
 				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'kitpvp'){
 				$entity->setGamemode(0);
-				$x = 0;
-				$y = 40;
-				$z = 0;
+				$x = 283.5;
+				$y = 47;
+				$z = 202.5;
 				$level = $this->getServer()->getLevelByName("kitpvp");
 				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}elseif($level === 'city'){
 				$entity->setGamemode(1);
-				$x = 0;
-				$y = 40;
-				$z = 0;
+				$x = 3;
+				$y = 41;
+				$z = 2;
 				$level = $this->getServer()->getLevelByName("city");
 				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}
