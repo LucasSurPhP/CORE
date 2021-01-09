@@ -73,7 +73,7 @@ class Core extends PluginBase implements Listener{
         @mkdir($this->getDataFolder());
         @mkdir($this->getDataFolder() . "players/");
         if(!file_exists($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml")){
-            $config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
+            $this->config = new Config($this->getDataFolder()."players/".$event->getPlayer()->getName().".yml", CONFIG::YAML);
             $config->set("name", $event->getPlayer()->getName());
             $config->save();
         }
