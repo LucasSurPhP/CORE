@@ -50,6 +50,9 @@ use function scandir;
 
 class Core extends PluginBase implements Listener{
 
+	/** @var Config */
+	public $config;
+	
 	public $fts = "§7[§4§lK§r§7]§r";
 
 	public function onEnable(){
@@ -87,7 +90,6 @@ class Core extends PluginBase implements Listener{
 		$player->setGamemode(2);
 		$player->getLevel()->addSound(new GhastShootSound(new Vector3($player->getX(), $player->getY(), $player->getZ())));
 	}
-
 	/**
 	 * @param PlayerQuitEvent $event
 	 *
