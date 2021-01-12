@@ -287,32 +287,6 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please run this command in-game.");
 			}
 		}
-		if($cmd->getName() == "tpworld"){
-			if($sender instanceof Player){
-				if($sender->hasPermission("core.tpworld.use")){
-					$world = $args[0];
-					$level = $this->getServer()->getLevelByName($world);
-					$sender->teleport($level->getSafeSpawn());
-					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->fts . TF::GREEN . " You have been teleported to " . TF::GOLD . $level);
-				}else{
-					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!")
-				}
-			}else{
-				$sender->sendMessage("Please run this command in-game.");
-			}
-		}
-		if($cmd->getName() == "stats"){
-			if($sender instanceof Player){
-				$kdr = KDR::getInstance();
-				$kills = $kdr->getProvider()->getPlayerKillPoints($sender);
-				$deaths = $kdr->getProvider()->getPlayerDeathPoints($sender);
-				$ratio = $kdr->getProvider()->getKillToDeathRatio($sender);
-				$sender->sendMessage($this->ffts . TF::GREEN . " Kills, Deaths, & K/D Ratio\n" . TF::GOLD . "Kills: " . TF::BLUE . $kills . "\n" . TF::GOLD . "Deaths: " . TF::BLUE . $deaths . "\n" . TF::GOLD . "KDR: " . TF::BLUE . $ratio);
-			}else{
-				$sender->sendMessage("HELP, THE CONSOLE IS REALLY AN AI AND IT WANTS TO KNOW ITS KILL COU-- AAAHH *fading screaming*");
-			}
-		}
 		if($cmd->getname() == "guide"){
 			if($sender instanceof Player){
 				/** @var WrittenBook $item */
