@@ -302,7 +302,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please run this command in-game.");
 			}
 		}
-		/** @var KDR */
+		/** @var KDR $kdr */
 		if($cmd->getName() == "stats"){
 			if($sender instanceof Player){
 				$kdr = KDR::getInstance();
