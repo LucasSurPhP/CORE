@@ -34,6 +34,12 @@ commands:
     description: Summons lightning to you
     permission: core.lightning.use
     aliases: ["ln", "lightn"]
+  tpworld:
+    description: Teleports you to another world
+    permission: core.tpworld.use
+  stats:
+    description: Shows you your KDR Stats
+    aliases: ["kdr"]
   guide:
     description: Gives you a guidebook
   rules:
@@ -62,4 +68,7 @@ permissions:
     default: OP
   core.lightning.use:
     description: Allows usage of all Lightning related things.
+    default: OP
+  core.tpworld.use:
+    description: TPWORLD Command
     default: OP

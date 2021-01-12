@@ -169,6 +169,8 @@ class Core extends PluginBase implements Listener{
 				$level = $this->getServer()->getLevelByName("city");
 				$entity->setSpawn(new Position($x, $y, $z, $level));
 			}
+		}else{
+			$this->getServer()->getLogger()->info(TF::BLUE . "Yo what the fuck, a Non-Human entity just changed levels");
 		}
 	}
 
@@ -180,8 +182,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to creative!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "gms"){
@@ -191,8 +195,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Survival!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "gma"){
@@ -202,8 +208,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Adventure!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "gmspc"){
@@ -213,8 +221,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Your gamemode has been set to Spectator!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "day"){
@@ -224,8 +234,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Set the time to Day (6000) in your world!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "night"){
@@ -235,8 +247,10 @@ class Core extends PluginBase implements Listener{
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 					$sender->sendMessage($this->fts . TF::GREEN . " Set the time to Night (16000) in your world!");
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "hub"){
@@ -251,7 +265,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage($this->fts . TF::GOLD . " Teleported to Hub");
 				$sender->setGamemode(2);
 			}else{
-				$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+				$sender->sendMessage("You tried to use /hub via the Console? Man, you're a special kind of retard...");
 			}
 		}
 		if($cmd->getName() == "clearinv"){
@@ -259,7 +273,7 @@ class Core extends PluginBase implements Listener{
 				$sender->getInventory()->clearAll();
 				$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 			}else{
-				$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
 		if($cmd->getName() == "lightning"){
@@ -267,8 +281,36 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.lightning.use")){
 					$this->Lightning($sender);
 				}else{
-					$sender->sendMessage($this->fts . TF::RED . " An error has occurred. Please notify a server administrator about this.");
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!");
 				}
+			}else{
+				$sender->sendMessage("Please run this command in-game.");
+			}
+		}
+		if($cmd->getName() == "tpworld"){
+			if($sender instanceof Player){
+				if($sender->hasPermission("core.tpworld.use")){
+					$world = $args[0];
+					$level = $this->getServer()->getLevelByName($world);
+					$sender->teleport($level->getSafeSpawn());
+					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+					$sender->sendMessage($this->fts . TF::GREEN . " You have been teleported to " . TF::GOLD . $level);
+				}else{
+					$sender->sendMessage($this->fts . TF::RED . " You do not have permission to use this command!")
+				}
+			}else{
+				$sender->sendMessage("Please run this command in-game.");
+			}
+		}
+		if($cmd->getName() == "stats"){
+			if($sender instanceof Player){
+				$kdr = KDR::getInstance();
+				$kills = $kdr->getProvider()->getPlayerKillPoints($sender);
+				$deaths = $kdr->getProvider()->getPlayerDeathPoints($sender);
+				$ratio = $kdr->getProvider()->getKillToDeathRatio($sender);
+				$sender->sendMessage($this->ffts . TF::GREEN . " Kills, Deaths, & K/D Ratio\n" . TF::GOLD . "Kills: " . TF::BLUE . $kills . "\n" . TF::GOLD . "Deaths: " . TF::BLUE . $deaths . "\n" . TF::GOLD . "KDR: " . TF::BLUE . $ratio);
+			}else{
+				$sender->sendMessage("HELP, THE CONSOLE IS REALLY AN AI AND IT WANTS TO KNOW ITS KILL COU-- AAAHH *fading screaming*");
 			}
 		}
 		if($cmd->getname() == "guide"){
@@ -286,7 +328,9 @@ class Core extends PluginBase implements Listener{
 				$item->setPageText(7, "§3We hope you enjoy your time here on KYT :D\n\n§9Kaddicus would like to thank BlueNinja123447 and LashedPopcorn24 for unknowingly motivating him to create this guidebook, and RexRed252807 for helping test and format it.");
 				$item->setAuthor("Kaddicus");
 				$sender->getInventory()->addItem($item);
-			}  // Thanks BlueNinja123447 & LashedPopcorn24 for unknowingly motivating me to do this, and RexRed252807 for helping me test and format it.
+			}else{
+				$sender->sendMessage("Please use this command in-game.");
+			}
 		}
 		if($cmd->getName() == "rules"){
 			if($sender instanceof Player){
@@ -299,6 +343,8 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("§f- §eNo Lavacasts/Other excessive usages of Lava and Water. Generators are fine. §c(§4Ban§c)");
 				$sender->sendMessage("§f- §eUse common sense. If it doesn't seem like a good idea, don't do it!§e");
 				$sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
+			}else{
+				$sender->sendMessage("Do you know why /rules is blocked for Console? Well, no, neither do I to be honest...");
 			}
 		}
 		if($cmd->getName() == "nv"){
