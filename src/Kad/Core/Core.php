@@ -290,7 +290,7 @@ class Core extends PluginBase implements Listener{
 		if($cmd->getName() == "tpworld"){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.tpworld.use")){
-					$world = $args[0];
+					$world = strtolower($args[0]);
 					$level = $this->getServer()->getLevelByName($world);
 					$sender->teleport($level->getSafeSpawn());
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
