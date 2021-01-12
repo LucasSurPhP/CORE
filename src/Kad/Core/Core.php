@@ -302,9 +302,10 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please run this command in-game.");
 			}
 		}
+		/** @var KDR */
 		if($cmd->getName() == "stats"){
 			if($sender instanceof Player){
-				$kdr = $this->getServer()->getPluginManager()->getPlugin("KDR");
+				$kdr = KDR::getInstance();
 				$kills = $kdr->getProvider()->getPlayerKillPoints($sender);
 				$deaths = $kdr->getProvider()->getPlayerDeathPoints($sender);
 				$ratio = $kdr->getProvider()->getKillToDeathRatio($sender);
