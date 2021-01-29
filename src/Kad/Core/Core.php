@@ -9,7 +9,7 @@ use pocketmine\{
 };
 use pocketmine\block\Block;
 use pocketmine\command\{
-    Commands,
+    Command,
     CommandSender
 };
 use pocketmine\entity\{
