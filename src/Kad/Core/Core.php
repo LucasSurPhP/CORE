@@ -236,8 +236,8 @@ class Core extends PluginBase implements Listener{
 		}
         if($cmd->getName() == "ii"){
             if($sender instanceof Player){
-                $item = $sender->getItemInHand()->getId();
-                $damage = $sender->getItemInHand()->getDamage();
+                $item = $sender->getInventory()->getItemInHand()->getId();
+                $damage = $sender->getInventory()->getItemInHand()->getDamage();
                 $sender->sendMessage($this->kyt . TF::GREEN . " ID: " . $item . ":" . $damage);
             }else{
                 $sender->sendMessage("Please use this command in-game.");
