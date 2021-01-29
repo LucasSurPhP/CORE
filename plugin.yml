@@ -1,7 +1,7 @@
 name: Core
 main: Kad\Core\Core
 api: 3.15.0
-version: 4.1.1
+version: 5.0.0
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -24,6 +24,8 @@ commands:
   night:
     description: Changes the time to Night in the world you're in
     permission: core.night.use
+  nv:
+    description: Gives you Night Vision
   clearinv:
     description: Clears you're Inventory
     aliases: ["invclear"]
@@ -37,15 +39,8 @@ commands:
   tpworld:
     description: Teleports you to another world
     permission: core.tpworld.use
-  stats:
-    description: Shows you your KDR Stats
-    aliases: ["kdr"]
-  guide:
-    description: Gives you a guidebook
   rules:
     description: Shows the servers Rules
-  nv:
-    description: Gives you Night Vision
 
 permissions:
   core.gmc.use:
