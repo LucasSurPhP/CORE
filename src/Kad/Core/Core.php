@@ -118,7 +118,8 @@ class Core extends PluginBase implements Listener{
 		$sound->pitch = 1;
 		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
     }
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool{
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool
+    {
         if($cmd->getName() == "gms"){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.gms.use")){
@@ -235,8 +236,8 @@ class Core extends PluginBase implements Listener{
 		}
         if($cmd->getName() == "ii"){
             if($sender instanceof Player){
-                $item = $player->getItemInHand()->getId();
-                $damage = $player->getItemInHand()->getDamage();
+                $item = $sender->getItemInHand()->getId();
+                $damage = $sender->getItemInHand()->getDamage();
                 $sender->sendMessage($this->kyt . TF::GREEN . " ID: " . $item . ":" . $damage);
             }else{
                 $sender->sendMessage("Please use this command in-game.");
@@ -270,7 +271,7 @@ class Core extends PluginBase implements Listener{
 			    $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms. §c(§4Kick, then Ban§c)");
 			    $sender->sendMessage("§f- §eNo Drama. We've all had enough of it elsewhere, please do not bring it here. §c(§4Kick, then Ban§c)");
                 $sender->sendMessage("§f- §eNo Lavacasts/Other excessive usages of Lava and Water. §c(§4Ban§c)");
-                $sender->sendMessgae("§f- §eNo Dolphin Porn. §c(§4Ban§c)");
+                $sender->sendMessage("§f- §eNo Dolphin Porn. §c(§4Ban§c)");
 			    $sender->sendMessage("§f- §eThat's it, have fun §b:)§e");
 			}else{
 				$sender->sendMessage("If you have console access you BETTER know the fucking rules...");
