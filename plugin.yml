@@ -6,12 +6,12 @@ mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
 commands:
-  gmc:
-    description: Changes your gamemode to Creative
-    permission: core.gmc.use
   gms:
-    description: Changes your gamemode to Survival
+    description: Changes your gamemode to Creative
     permission: core.gms.use
+  gmc:
+    description: Changes your gamemode to Survival
+    permission: core.gmc.use
   gma:
     description: Changes your gamemode to Adventure
     permission: core.gma.use
@@ -29,16 +29,19 @@ commands:
   clearinv:
     description: Clears you're Inventory
     aliases: ["invclear"]
-  hub:
-    description: Teleports you to the Hub
-    aliases: ["lobby","spawn"]
+  tpworld:
+    description: Teleports you to another world
+    permission: core.tpworld.use
+  ii:
+    description: Tells you the ID:Meta of the item you're holding.
+    aliases: ["itemid"]
   lightning:
     description: Summons lightning to you
     permission: core.lightning.use
     aliases: ["ln", "lightn"]
-  tpworld:
-    description: Teleports you to another world
-    permission: core.tpworld.use
+  hub:
+    description: Teleports you to the Hub
+    aliases: ["lobby","spawn"]
   rules:
     description: Shows the servers Rules
 
