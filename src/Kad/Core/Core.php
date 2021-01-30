@@ -8,6 +8,7 @@ use pocketmine\{
     Server
 };
 use pocketmine\block\Block;
+use pocketmine\tile\Sign;
 use pocketmine\command\{
     Command,
     CommandSender
@@ -23,7 +24,8 @@ use pocketmine\event\{
     entity\EntityLevelChangeEvent,
     player\PlayerJoinEvent,
     player\PlayerDeathEvent,
-    player\PlayerQuitEvent
+	player\PlayerQuitEvent,
+	player\PlayerInteractEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\Position;
@@ -44,7 +46,13 @@ use function scandir;
 
 class Core extends PluginBase implements Listener{
 
-    public $kyt = "§7[§4§lK§r§7]§r";
+	public $kyt = "§7[§4§lK§r§7]§r";
+	
+	/** @var array $signLines */
+	protected $signLines = [];
+
+	/** @var array $signText */
+	protected $signText = [];
 
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -95,7 +103,19 @@ class Core extends PluginBase implements Listener{
     *       }
     *   }
     * }
-    */
+	*/
+	public function Interact(PlayerInteractEvent $event) : void{
+		$player = $event->getPlayer();
+		$tile = $event->getPlayer()->getLevel()->getTile($event->getBlock());
+		if($tile instanceof Sign){
+			if(isset($this->signLines[$player->getName()]) && isset($this->signText[$player->getName()])){
+				$tile->setLine($this->signLines[$player->getName()], $this->signText[$player->getName()]);
+				$player->sendMessage($this->kyt . TF::GREEN . " You have successfully set line #" . strval($this->signLines[$player->getName()] + 1) . " of this sign");
+				unset($this->signLines[$player->getName()]);
+				unset($this->signText[$player->getName()]);
+			}
+		}
+	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
 		$light->type = "minecraft:lightning_bolt";
@@ -120,7 +140,7 @@ class Core extends PluginBase implements Listener{
     }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool
     {
-        if($cmd->getName() == "gms"){
+        if(strtolower($cmd->getName() == "gms")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.gms.use")){
 					$sender->setGamemode(0);
@@ -133,7 +153,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-		if($cmd->getName() == "gmc"){
+		if(strtolower($cmd->getName() == "gmc")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.gmc.use")){
 					$sender->setGamemode(1);
@@ -146,7 +166,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-		if($cmd->getName() == "gma"){
+		if(strtolower($cmd->getName() == "gma")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.gma.use")){
 					$sender->setGamemode(2);
@@ -159,7 +179,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-		if($cmd->getName() == "gmspc"){
+		if(strtolower($cmd->getName() == "gmspc")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.gmspc.use")){
 					$sender->setGamemode(3);
@@ -172,7 +192,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-		if($cmd->getName() == "day"){
+		if(strtolower($cmd->getName() == "day")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.day.use")){
 					$sender->getLevel()->setTime(6000);
@@ -185,7 +205,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-		if($cmd->getName() == "night"){
+		if(strtolower($cmd->getName() == "night")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.night.use")){
 					$sender->getLevel()->setTime(16000);
@@ -198,7 +218,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-        if($cmd->getName() == "nv"){
+        if(strtolower($cmd->getName() == "nv")){
 			if($sender instanceof Player){
 				if($sender->getEffect(Effect::NIGHT_VISION)){
 					$sender->sendMessage($this->kyt . TF::GREEN . " Night Vision turned off!");
@@ -211,7 +231,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("This command only works in game");
 			}
 		}
-        if($cmd->getName() == "clearinv"){
+        if(strtolower($cmd->getName() == "clearinv")){
 			if($sender instanceof Player){
 				$sender->getInventory()->clearAll();
 				$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
@@ -219,7 +239,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-        if($cmd->getName() == "tpworld"){
+        if(strtolower($cmd->getName() == "tpworld")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.tpworld.use")){
 					$world = strtolower($args[0]);
@@ -234,7 +254,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Sir, you just tried to teleport a non-existent entity into a virtual game to teleport them to another world in said game. I recommend you go see a psychologist.");
 			}
 		}
-        if($cmd->getName() == "ii"){
+        if(strtolower($cmd->getName() == "itemid")){
             if($sender instanceof Player){
                 $item = $sender->getInventory()->getItemInHand()->getId();
                 $damage = $sender->getInventory()->getItemInHand()->getDamage();
@@ -243,7 +263,7 @@ class Core extends PluginBase implements Listener{
                 $sender->sendMessage("Please use this command in-game.");
             }
         }
-        if($cmd->getName() == "lightning"){
+        if(strtolower($cmd->getName() == "lightning")){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.lightning.use")){
 					$this->Lightning($sender);
@@ -254,8 +274,47 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please run this command in-game.");
 			}
 		}
+		if(strtolower($cmd->getName() == "changesign")){
+			if(!$sender instanceof Player){
+				$sender->sendMessage("Please use this command in-game.");
+				return false;
+			}
+			if(!$sender->hasPermission("core.changesign.use")){
+				$sender->sendMessae($this->kyt . TF::RED . " You do not have permission to use this command!");
+				return false;
+			}
+			if(empty($args[0])){
+				$sender->sendMessage($this->kyt . TF::GREEN . " Usage: /cs <line #> <text>");
+				return false;
+			}
+			switch($args[0]){
+				case "1":
+					$this->signLines[$sender->getName()] = 0;
+					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
+					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the first line of text");
+					break;
+				case "2":
+					$this->signLines[$sender->getName()] = 1;
+					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
+					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the second line of text");
+					break;
+				case "3":
+					$this->signLines[$sender->getName()] = 2;
+					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
+					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the third line of text");
+					break;
+				case "4":
+					$this->signLines[$sender->getName()] = 3;
+					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
+					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the fourth line of text");
+					break;
+				default:
+					$sender->sendMessage($this->kyt . TF::GRAY . " Usage: /cs <line #> <text>");
+					break;
+			}
+		}
         # All commands after this will likely need modifications more than once.
-		if($cmd->getName() == "hub"){
+		if(strtolower($cmd->getName() == "hub")){
 			if($sender instanceof Player){
 				$sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 				$sender->sendMessage($this->kyt . TF::GOLD . " Teleported to Hub");
@@ -263,7 +322,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Sir, you just tried to teleport a non-existent entity into a virtual game to teleport them to another world in said game. I recommend you go see a psychologist.");
 			}
 		}
-		if($cmd->getName() == "rules"){
+		if(strtolower($cmd->getName() == "rules")){
 			if($sender instanceof Player){
 				$sender->sendMessage("§6§o§lKYT Server Rules§r");
 				$sender->sendMessage("§f- §eNo advertising in any way, shape or form. §c(§4Ban§c)");

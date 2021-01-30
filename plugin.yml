@@ -1,7 +1,7 @@
 name: Core
 main: Kad\Core\Core
 api: 3.15.0
-version: 5.0.0
+version: 5.1.0
 mcpe-protocol: [407, 408, 419, 422]
 load: POSTWORLD
 author: KadTheHunter
@@ -32,13 +32,17 @@ commands:
   tpworld:
     description: Teleports you to another world
     permission: core.tpworld.use
-  ii:
+  itemid:
     description: Tells you the ID:Meta of the item you're holding.
-    aliases: ["itemid"]
+    aliases: ["ii"]
   lightning:
     description: Summons lightning to you
     permission: core.lightning.use
     aliases: ["ln", "lightn"]
+  changesign:
+    description: Allows you to change sign text
+    permission: core.changesign.use
+    aliases: ["cs"]
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
@@ -69,4 +73,7 @@ permissions:
     default: OP
   core.tpworld.use:
     description: TPWORLD Command
+    default: OP
+  core.changesign.use:
+    description: CHANGESIGN Command
     default: OP
