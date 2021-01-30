@@ -280,7 +280,7 @@ class Core extends PluginBase implements Listener{
 				return false;
 			}
 			if(!$sender->hasPermission("core.changesign.use")){
-				$sender->sendMessae($this->kyt . TF::RED . " You do not have permission to use this command!");
+				$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
 				return false;
 			}
 			if(empty($args[0])){
