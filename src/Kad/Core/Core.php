@@ -116,6 +116,14 @@ class Core extends PluginBase implements Listener{
 			}
 		}
 	}
+	/**
+	 * @param LeavesDecayEvent $event
+	 * 
+	 * @priority HIGHEST
+	 */
+	public function Decay(LeavesDecayEvent $event){
+		$event->setCancelled(true);
+	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
 		$light->type = "minecraft:lightning_bolt";
