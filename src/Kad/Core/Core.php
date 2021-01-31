@@ -19,13 +19,15 @@ use pocketmine\entity\{
     EffectInstance
 };
 use pocketmine\event\{
-    Listener,
-    block\LeavesDecayEvent,
-    entity\EntityLevelChangeEvent,
-    player\PlayerJoinEvent,
-    player\PlayerDeathEvent,
+	Listener,
+	block\LeavesDecayEvent,
+	block\BlockSpreadEvent,
+	entity\EntityLevelChangeEvent,
+	player\PlayerJoinEvent,
+	player\PlayerDeathEvent,
 	player\PlayerQuitEvent,
-	player\PlayerInteractEvent
+	player\PlayerInteractEvent,
+	player\PlayerBucketEmptyEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\Position;
@@ -64,7 +66,6 @@ class Core extends PluginBase implements Listener{
     }
     /**
      * @param PlayerJoinEvent $event
-     * 
      * @priority LOW
      */
     public function Join(PlayerJoinEvent $event){
@@ -73,7 +74,6 @@ class Core extends PluginBase implements Listener{
     }
     /**
      * @param PlayerQuitEvent $event
-     * 
      * @priority LOW
      */
     public function Leave(PlayerQuitEvent $event){
@@ -82,7 +82,6 @@ class Core extends PluginBase implements Listener{
     }
     /**
      * @param PlayerDeathEvent $event
-     * 
      * @priority HIGH
      */
     public function Death(PlayerDeathEvent $event) : bool{
@@ -92,18 +91,6 @@ class Core extends PluginBase implements Listener{
         $this->Lightning($event->getPlayer());
         return true;
     }
-    # Removed until I decide how many worlds we'll have.
-    /**
-    * public function LevelChange(EntityLevelChangeEvent $event){
-    *     $entity = $event->getEntity();
-    *     if($entity instanceof Player){
-    *       $level = $event->getTarget()->getName();
-    *       if($level === 'city'){
-    *           $entity->setGamemode(1);
-    *       }
-    *   }
-    * }
-	*/
 	public function Interact(PlayerInteractEvent $event) : void{
 		$player = $event->getPlayer();
 		$tile = $event->getPlayer()->getLevel()->getTile($event->getBlock());
@@ -118,10 +105,15 @@ class Core extends PluginBase implements Listener{
 	}
 	/**
 	 * @param LeavesDecayEvent $event
-	 * 
 	 * @priority HIGHEST
 	 */
 	public function Decay(LeavesDecayEvent $event){
+		$event->setCancelled(true);
+	}
+	public function Spread(BlockSpreadEvent $event){
+		$event->setCancelled(true);
+	}
+	public function Empty(PlayerBucketEmptyEvent $event){
 		$event->setCancelled(true);
 	}
     public function Lightning(Player $player) : void{
