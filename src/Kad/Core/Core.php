@@ -21,7 +21,6 @@ use pocketmine\entity\{
 use pocketmine\event\{
 	Listener,
 	block\LeavesDecayEvent,
-	block\BlockSpreadEvent,
 	entity\EntityLevelChangeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerDeathEvent,
@@ -108,9 +107,6 @@ class Core extends PluginBase implements Listener{
 	 * @priority HIGHEST
 	 */
 	public function Decay(LeavesDecayEvent $event){
-		$event->setCancelled(true);
-	}
-	public function Spread(BlockSpreadEvent $event){
 		$event->setCancelled(true);
 	}
 	public function Empty(PlayerBucketEmptyEvent $event){
