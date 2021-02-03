@@ -328,7 +328,8 @@ class Core extends PluginBase implements Listener{
 		}
 		if(strtolower($cmd->getName()) == "rules"){
 			if($sender instanceof Player){
-				$sender->sendMessage("§6§o§lKYT Server Rules§r");
+				$sender->sendMessage("§6§o§lServer Rules§r");
+				$sender->sendMessage("§f- §eNo griefing. §c(§4Ban§c)");
 				$sender->sendMessage("§f- §eNo advertising in any way, shape or form. §c(§4Ban§c)");
 			    $sender->sendMessage("§f- §eNo NSFW/18+ Builds, Chat or Content. §c(§4Ban§c)");
 			    $sender->sendMessage("§f- §eNo asking for OP/Ranks/Perms. §c(§4Kick, then Ban§c)");
