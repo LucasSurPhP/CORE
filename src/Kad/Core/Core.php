@@ -240,16 +240,25 @@ class Core extends PluginBase implements Listener{
 		if(strtolower($cmd->getName()) == "tpworld"){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.tpworld.use")){
-					$world = strtolower($args[0]);
-					$level = $this->getServer()->getLevelByName($world);
-					$sender->teleport($level->getSafeSpawn());
-					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
+					if(isset($args[0])){
+						$world = strtolower($args[0]);
+						if($this->getServer()->isLevelLoaded($world)){
+							$level = $this->getServer()->getLevelByName($world);
+							$sender->teleport($level->getSafeSpawn());
+							$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
+							$sender->sendMessage($this->kyt . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
+						}else{
+							$sender->sendMessage($this->kyt . TF::RED . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
+						}
+					}else{
+						$sender->sendMessage($this->kyt . TF::RED . " Error: missing arguments.");
+						$sender->sendMessage($this->kyt . TF::RED . " Usage: /tpworld <freebuild|city>");
+					}
 				}else{
 					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
-				$sender->sendMessage("Sir, you just tried to teleport a non-existent entity into a virtual game to teleport them to another world in said game. I recommend you go see a psychologist.");
+				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
         if(strtolower($cmd->getName()) == "itemid"){
