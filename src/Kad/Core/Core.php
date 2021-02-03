@@ -62,14 +62,16 @@ class Core extends PluginBase implements Listener{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-    }
+	}
     /**
      * @param PlayerJoinEvent $event
      * @priority LOW
      */
     public function Join(PlayerJoinEvent $event){
         $name = $event->getPlayer()->getName();
-        $event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
+		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
+		$player = $event->getPlayer();
+		$player->setGamemode(1);
     }
     /**
      * @param PlayerQuitEvent $event
@@ -235,7 +237,7 @@ class Core extends PluginBase implements Listener{
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
-        if(strtolower($cmd->getName()) == "tpworld"){
+		if(strtolower($cmd->getName()) == "tpworld"){
 			if($sender instanceof Player){
 				if($sender->hasPermission("core.tpworld.use")){
 					$world = strtolower($args[0]);
@@ -312,6 +314,12 @@ class Core extends PluginBase implements Listener{
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
 			if($sender instanceof Player){
+				$x = 0;
+				$y = 43;
+				$z = 0;
+				$pos = new Position($x, $y, $z, $level);
+				$sender->teleport($pos);
+				$level = $this->getServer()->getLevelByName("freebuild");
 				$sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 				$sender->sendMessage($this->kyt . TF::GOLD . " Teleported to Hub");
 			}else{
