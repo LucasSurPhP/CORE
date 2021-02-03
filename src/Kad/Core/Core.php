@@ -326,9 +326,9 @@ class Core extends PluginBase implements Listener{
 				$x = 0;
 				$y = 43;
 				$z = 0;
+				$level = $this->getServer()->getLevelByName("freebuild");
 				$pos = new Position($x, $y, $z, $level);
 				$sender->teleport($pos);
-				$level = $this->getServer()->getLevelByName("freebuild");
 				$sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
 				$sender->sendMessage($this->kyt . TF::GOLD . " Teleported to Hub");
 			}else{
