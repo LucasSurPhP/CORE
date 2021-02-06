@@ -1,0 +1,20 @@
+#   Variables:
+#   - & for color coding
+#   - {line} for a new line
+#   - {max_players} for the max players of the server
+#   - {online_players} for the online player count
+#   - {tps} for the ticks per second of the server
+#   - {motd} for the message of the day
+
+
+prefix: "&7[&4&lK&r&7]&r "
+
+message_interval: 60
+
+messages:
+ - "&bBlazinBroadcasts &aby &6BlazeTheDev"
+ - "2nd Message"
+
+commands:
+ - "say Hi this is BlazinBroadcasts testing commands"
+ - "me Hi this is BlazinBroadcasts testing commands"
