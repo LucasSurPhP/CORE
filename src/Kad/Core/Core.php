@@ -49,9 +49,6 @@ use function scandir;
 class Core extends PluginBase implements Listener{
 
 	public $kyt = "§7[§4§lK§r§7]§r";
-
-	/** @var self $instance */
-	private static $instance;
 	
 	/** @var array $signLines */
 	protected $signLines = [];
@@ -66,23 +63,6 @@ class Core extends PluginBase implements Listener{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-		self::$instance = $this;
-		@mkdir($this->getDataFolder());
-		$this->saveDefaultConfig();
-		$this->messageIntegerCheck();
-	}
-	private function messageIntegerCheck() : bool{
-		if(!is_integer($this->getConfig()->get("message_interval"))){
-			$this->getServer()->getPluginManager()->disablePlugin($this);
-			return false;
-		}elseif(is_integer($this->getConfig()->get("message_interval"))){
-			$this->getScheduler()->scheduleRepeatingTask(new BroadcastTask(), $this->getConfig()->get("message_interval") * 20);
-			return true;
-		}
-		return true;
-	}
-	public static function getInstance() : self{
-		return self::$instance;
 	}
     /**
      * @param PlayerJoinEvent $event
