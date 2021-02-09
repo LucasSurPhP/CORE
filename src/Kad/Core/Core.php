@@ -321,6 +321,32 @@ class Core extends PluginBase implements Listener{
 					break;
 			}
 		}
+		if(strtolower($cmd->getName()) == "playtime"){
+			if($sender instanceof Player){
+				$time = ((int) floor(microtime(true) * 1000)) - $sender->getFirstPlayed() ?? microtime();
+        		$seconds = floor($time % 60);
+        		$minutes = null;
+        		$hours = null;
+        		$days = null;
+        		if($time >= 60){
+            		$minutes = floor(($time % 3600) / 60);
+            		if($time >= 3600){
+                		$hours = floor(($time % (3600 * 24)) / 3600);
+                		if($time >= 3600 * 24){
+                    		$days = floor($time / (3600 * 24));
+                		}
+            		}
+        		}
+        		$uptime = ($minutes !== null ?
+                		($hours !== null ?
+                    		($days !== null ?
+                        		"$days days "
+                        		: "") . "$hours hours "
+                    		: "") . "$minutes minutes "
+                		: "") . "$seconds seconds";
+        		$sender->sendMessage($this->mch . TF::GREEN . "Playtime: " . $uptime);
+			}
+		}
         # All commands after this will likely need modifications more than once.
 		if(strtolower($cmd->getName()) == "hub"){
 			if($sender instanceof Player){
