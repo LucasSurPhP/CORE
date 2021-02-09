@@ -119,7 +119,7 @@ class Core extends PluginBase implements Listener{
 	public function SignChange(SignChangeEvent $event){
 		$player = $event->getPlayer();
 		$text = $event->getLines();
-		foreach($this->getServer()->getOnlinePlayers() as $p)){
+		foreach($this->getServer()->getOnlinePlayers() as $p){
 			$p->sendMessage(TF::RED . $player . " wrote " . $text);
 		}
 	}
