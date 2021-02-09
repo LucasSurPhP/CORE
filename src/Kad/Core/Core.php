@@ -347,6 +347,8 @@ class Core extends PluginBase implements Listener{
                     		: "") . "$minutes minutes "
                 		: "") . "$seconds seconds";
         		$sender->sendMessage($this->mch . TF::GREEN . "Playtime: " . $uptime);
+			}else{
+				$sender->sendMessage("The console is immortal. To measure it's playtime would be impossible.");
 			}
 		}
         # All commands after this will likely need modifications more than once.
