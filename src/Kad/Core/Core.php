@@ -22,14 +22,12 @@ use pocketmine\entity\{
 use pocketmine\event\{
 	Listener,
 	block\LeavesDecayEvent,
-	block\SignChangeEvent,
 	entity\EntityLevelChangeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerDeathEvent,
 	player\PlayerQuitEvent,
 	player\PlayerInteractEvent,
 	player\PlayerBucketEmptyEvent,
-	player\PlayerChatEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\Position;
