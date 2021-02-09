@@ -120,7 +120,7 @@ class Core extends PluginBase implements Listener{
 		$player = $event->getPlayer();
 		$text = $event->getLines();
 		foreach($this->getServer()->getOnlinePlayers() as $p){
-			$p->sendMessage(TF::RED . $player . " wrote " . $text);
+			$p->sendMessage("$player wrote $text");
 		}
 	}
     public function Lightning(Player $player) : void{
