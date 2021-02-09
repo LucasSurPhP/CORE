@@ -117,24 +117,6 @@ class Core extends PluginBase implements Listener{
 	public function Empty(PlayerBucketEmptyEvent $event){
 		$event->setCancelled(true);
 	}
-	/**
-	 * @param SignChangeEvent $event
-	 * @priority HIGHEST
-	 */
-	public function SignChange(SignChangeEvent $event){
-		$msg = $event->getLines();
-		$fixedmsg = $this->FixColours($msg);
-		$event->setLines($fixedmsg);
-	}
-	/**
-	 * @param PlayerChatEvent $event
-	 * @priority HIGHEST
-	 */
-	public function Chat(PlayerChatEvent $event){
-		$msg = $event->getMessage();
-		$fixedmsg = $this->FixColours($msg);
-		$event->setMessage($fixedmsg);
-	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
 		$light->type = "minecraft:lightning_bolt";
@@ -156,32 +138,6 @@ class Core extends PluginBase implements Listener{
 		$sound->volume = 1;
 		$sound->pitch = 1;
 		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
-    }
-    public function FixColours($msg){
-    	$msg = str_replace("§0", TF::BLACK, $msg);
-        $msg = str_replace("§1", TF::DARK_BLUE, $msg);
-        $msg = str_replace("§2", TF::DARK_GREEN, $msg);
-        $msg = str_replace("§3", TF::DARK_AQUA, $msg);
-        $msg = str_replace("§4", TF::DARK_RED, $msg);
-        $msg = str_replace("§5", TF::DARK_PURPLE, $msg);
-        $msg = str_replace("§6", TF::GOLD, $msg);
-        $msg = str_replace("§7", TF::GRAY, $msg);
-        $msg = str_replace("§8", TF::DARK_GRAY, $msg);
-        $msg = str_replace("§9", TF::BLUE, $msg);
-        $msg = str_replace("§a", TF::GREEN, $msg);
-        $msg = str_replace("§b", TF::AQUA, $msg);
-        $msg = str_replace("§c", TF::RED, $msg);
-        $msg = str_replace("§d", TF::LIGHT_PURPLE, $msg);
-        $msg = str_replace("§e", TF::YELLOW, $msg);
-        $msg = str_replace("§f", TF::WHITE, $msg);
-        $msg = str_replace("§k", TF::OBFUSCATED, $msg);
-        $msg = str_replace("§l", TF::BOLD, $msg);
-        $msg = str_replace("§m", TF::STRIKETHROUGH, $msg);
-        $msg = str_replace("§n", TF::UNDERLINE, $msg);
-        $msg = str_replace("§o", TF::ITALIC, $msg);
-        $msg = str_replace("§r", TF::RESET, $msg);
-
-        return $msg;
     }
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool
     {
