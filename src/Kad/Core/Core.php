@@ -147,10 +147,6 @@ class Core extends PluginBase implements Listener{
 		$sound->pitch = 1;
 		Server::getInstance()->broadcastPacket($player->getLevel()->getPlayers(), $sound);
     }
-	/**
-    * @param $msg
-    * @return mixed
-    */
     public function FixColours($msg){
     	$msg = str_replace("§0", TF::BLACK, $msg);
         $msg = str_replace("§1", TF::DARK_BLUE, $msg);
