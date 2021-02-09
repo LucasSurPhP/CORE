@@ -23,3 +23,36 @@
 				$sender->sendMessage("Please use this command in-game.");
 			}
 		}
+
+
+	/**
+    * @param $msg
+    * @return mixed
+    */
+    public function FixColours($msg)
+    {
+        $msg = str_replace("&0", TF::BLACK, $msg);
+        $msg = str_replace("&1", TF::DARK_BLUE, $msg);
+        $msg = str_replace("&2", TF::DARK_GREEN, $msg);
+        $msg = str_replace("&3", TF::DARK_AQUA, $msg);
+        $msg = str_replace("&4", TF::DARK_RED, $msg);
+        $msg = str_replace("&5", TF::DARK_PURPLE, $msg);
+        $msg = str_replace("&6", TF::GOLD, $msg);
+        $msg = str_replace("&7", TF::GRAY, $msg);
+        $msg = str_replace("&8", TF::DARK_GRAY, $msg);
+        $msg = str_replace("&9", TF::BLUE, $msg);
+        $msg = str_replace("&a", TF::GREEN, $msg);
+        $msg = str_replace("&b", TF::AQUA, $msg);
+        $msg = str_replace("&c", TF::RED, $msg);
+        $msg = str_replace("&d", TF::LIGHT_PURPLE, $msg);
+        $msg = str_replace("&e", TF::YELLOW, $msg);
+        $msg = str_replace("&f", TF::WHITE, $msg);
+        $msg = str_replace("&k", TF::OBFUSCATED, $msg);
+        $msg = str_replace("&l", TF::BOLD, $msg);
+        $msg = str_replace("&m", TF::STRIKETHROUGH, $msg);
+        $msg = str_replace("&n", TF::UNDERLINE, $msg);
+        $msg = str_replace("&o", TF::ITALIC, $msg);
+        $msg = str_replace("&r", TF::RESET, $msg);
+
+        return $msg;
+    }
