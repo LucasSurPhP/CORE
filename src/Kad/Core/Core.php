@@ -22,7 +22,6 @@ use pocketmine\entity\{
 use pocketmine\event\{
 	Listener,
 	block\LeavesDecayEvent,
-	block\SignChangeEvent,
 	entity\EntityLevelChangeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerDeathEvent,
@@ -115,13 +114,6 @@ class Core extends PluginBase implements Listener{
 	}
 	public function Empty(PlayerBucketEmptyEvent $event){
 		$event->setCancelled(true);
-	}
-	public function SignChange(SignChangeEvent $event){
-		$player = $event->getPlayer();
-		$text = $event->getLines();
-		foreach($this->getServer()->getOnlinePlayers() as $p){
-			$p->sendMessage($text);
-		}
 	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
