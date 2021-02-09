@@ -123,7 +123,8 @@ class Core extends PluginBase implements Listener{
 	 */
 	public function SignChange(SignChangeEvent $event){
 		$msg = $event->getLines();
-		$this->FixColours($msg);
+		$fixedmsg = $this->FixColours($msg);
+		$event->setMessage($fixedmsg);
 	}
 	/**
 	 * @param PlayerChatEvent $event
@@ -131,7 +132,8 @@ class Core extends PluginBase implements Listener{
 	 */
 	public function Chat(PlayerChatEvent $event){
 		$msg = $event->getMessage();
-		$this->FixColours($msg);
+		$fixedmsg = $this->FixColours($msg);
+		$event->setLines($fixedmsg);
 	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
