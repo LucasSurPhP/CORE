@@ -48,7 +48,7 @@ use function scandir;
 
 class Core extends PluginBase implements Listener{
 
-	public $kyt = "§7[§4§lK§r§7]§r";
+	public $mch = "§7[§4§lK§r§7]§r";
 	
 	/** @var array $signLines */
 	protected $signLines = [];
@@ -99,7 +99,7 @@ class Core extends PluginBase implements Listener{
 		if($tile instanceof Sign){
 			if(isset($this->signLines[$player->getName()]) && isset($this->signText[$player->getName()])){
 				$tile->setLine($this->signLines[$player->getName()], $this->signText[$player->getName()]);
-				$player->sendMessage($this->kyt . TF::GREEN . " You have successfully set line #" . strval($this->signLines[$player->getName()] + 1) . " of this sign");
+				$player->sendMessage($this->mch . TF::GREEN . " You have successfully set line #" . strval($this->signLines[$player->getName()] + 1) . " of this sign");
 				unset($this->signLines[$player->getName()]);
 				unset($this->signText[$player->getName()]);
 			}
@@ -144,9 +144,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.gms.use")){
 					$sender->setGamemode(0);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Your gamemode has been set to Creative!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Your gamemode has been set to Survival!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -157,9 +157,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.gmc.use")){
 					$sender->setGamemode(1);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Your gamemode has been set to Survival!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Your gamemode has been set to Creative!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -170,9 +170,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.gma.use")){
 					$sender->setGamemode(2);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Your gamemode has been set to Adventure!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Your gamemode has been set to Adventure!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -183,9 +183,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.gmspc.use")){
 					$sender->setGamemode(3);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Your gamemode has been set to Spectator!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Your gamemode has been set to Spectator!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -196,9 +196,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.day.use")){
 					$sender->getLevel()->setTime(6000);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Set the time to Day (6000) in your world!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Set the time to Day (6000) in your world!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -209,9 +209,9 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.night.use")){
 					$sender->getLevel()->setTime(16000);
 					$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Set the time to Night (16000) in your world!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Set the time to Night (16000) in your world!");
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -220,10 +220,10 @@ class Core extends PluginBase implements Listener{
         if(strtolower($cmd->getName()) == "nv"){
 			if($sender instanceof Player){
 				if($sender->getEffect(Effect::NIGHT_VISION)){
-					$sender->sendMessage($this->kyt . TF::GREEN . " Night Vision turned off!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Night Vision turned off!");
 					$sender->removeEffect(Effect::NIGHT_VISION);
 				}else{
-					$sender->sendMessage($this->kyt . TF::GREEN . " Night Vision turned on!");
+					$sender->sendMessage($this->mch . TF::GREEN . " Night Vision turned on!");
 					$sender->addEffect(new EffectInstance(Effect::getEffectByName("NIGHT_VISION"), INT32_MAX, 1, false));
 				}
 			}else{
@@ -247,16 +247,16 @@ class Core extends PluginBase implements Listener{
 							$level = $this->getServer()->getLevelByName($world);
 							$sender->teleport($level->getSafeSpawn());
 							$sender->getLevel()->addSound(new GhastShootSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-							$sender->sendMessage($this->kyt . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
+							$sender->sendMessage($this->mch . TF::GREEN . " You have been teleported to " . TF::GOLD . $world);
 						}else{
-							$sender->sendMessage($this->kyt . TF::RED . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
+							$sender->sendMessage($this->mch . TF::RED . " Error: World " . TF::GOLD . $world . TF::RED . "does not exist.");
 						}
 					}else{
-						$sender->sendMessage($this->kyt . TF::RED . " Error: missing arguments.");
-						$sender->sendMessage($this->kyt . TF::RED . " Usage: /tpworld <freebuild|city>");
+						$sender->sendMessage($this->mch . TF::RED . " Error: missing arguments.");
+						$sender->sendMessage($this->mch . TF::RED . " Usage: /tpworld <freebuild|city>");
 					}
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please use this command in-game.");
@@ -266,7 +266,7 @@ class Core extends PluginBase implements Listener{
             if($sender instanceof Player){
                 $item = $sender->getInventory()->getItemInHand()->getId();
                 $damage = $sender->getInventory()->getItemInHand()->getDamage();
-                $sender->sendMessage($this->kyt . TF::GREEN . " ID: " . $item . ":" . $damage);
+                $sender->sendMessage($this->mch . TF::GREEN . " ID: " . $item . ":" . $damage);
             }else{
                 $sender->sendMessage("Please use this command in-game.");
             }
@@ -276,7 +276,7 @@ class Core extends PluginBase implements Listener{
 				if($sender->hasPermission("core.lightning.use")){
 					$this->Lightning($sender);
 				}else{
-					$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+					$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				}
 			}else{
 				$sender->sendMessage("Please run this command in-game.");
@@ -288,36 +288,36 @@ class Core extends PluginBase implements Listener{
 				return false;
 			}
 			if(!$sender->hasPermission("core.changesign.use")){
-				$sender->sendMessage($this->kyt . TF::RED . " You do not have permission to use this command!");
+				$sender->sendMessage($this->mch . TF::RED . " You do not have permission to use this command!");
 				return false;
 			}
 			if(empty($args[0])){
-				$sender->sendMessage($this->kyt . TF::GREEN . " Usage: /cs <line #> <text>");
+				$sender->sendMessage($this->mch . TF::GREEN . " Usage: /cs <line #> <text>");
 				return false;
 			}
 			switch($args[0]){
 				case "1":
 					$this->signLines[$sender->getName()] = 0;
 					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the first line of text");
+					$sender->sendMessage($this->mch . TF::GREEN . " Tap a sign now to change the first line of text");
 					break;
 				case "2":
 					$this->signLines[$sender->getName()] = 1;
 					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the second line of text");
+					$sender->sendMessage($this->mch . TF::GREEN . " Tap a sign now to change the second line of text");
 					break;
 				case "3":
 					$this->signLines[$sender->getName()] = 2;
 					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the third line of text");
+					$sender->sendMessage($this->mch . TF::GREEN . " Tap a sign now to change the third line of text");
 					break;
 				case "4":
 					$this->signLines[$sender->getName()] = 3;
 					$this->signText[$sender->getName()] = implode(" ", array_slice($args, 1));
-					$sender->sendMessage($this->kyt . TF::GREEN . " Tap a sign now to change the fourth line of text");
+					$sender->sendMessage($this->mch . TF::GREEN . " Tap a sign now to change the fourth line of text");
 					break;
 				default:
-					$sender->sendMessage($this->kyt . TF::GRAY . " Usage: /cs <line #> <text>");
+					$sender->sendMessage($this->mch . TF::GRAY . " Usage: /cs <line #> <text>");
 					break;
 			}
 		}
@@ -331,7 +331,7 @@ class Core extends PluginBase implements Listener{
 				$pos = new Position($x, $y, $z, $level);
 				$sender->teleport($pos);
 				$sender->getLevel()->addSound(new EndermanTeleportSound(new Vector3($sender->getX(), $sender->getY(), $sender->getZ())));
-				$sender->sendMessage($this->kyt . TF::GOLD . " Teleported to Hub");
+				$sender->sendMessage($this->mch . TF::GOLD . " Teleported to Hub");
 			}else{
 				$sender->sendMessage("Sir, you just tried to teleport a non-existent entity into a virtual game to teleport them to another world in said game. I recommend you go see a psychologist.");
 			}
