@@ -117,10 +117,18 @@ class Core extends PluginBase implements Listener{
 	public function Empty(PlayerBucketEmptyEvent $event){
 		$event->setCancelled(true);
 	}
+	/**
+	 * @param SignChangeEvent $event
+	 * @priority HIGHEST
+	 */
 	public function SignChange(SignChangeEvent $event){
 		$msg = $event->getLines();
 		$this->FixColours($msg);
 	}
+	/**
+	 * @param PlayerChatEvent $event
+	 * @priority HIGHEST
+	 */
 	public function Chat(PlayerChatEvent $event){
 		$msg = $event->getMessage();
 		$this->FixColours($msg);
