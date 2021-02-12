@@ -27,7 +27,7 @@ use pocketmine\event\{
 	player\PlayerDeathEvent,
 	player\PlayerQuitEvent,
 	player\PlayerInteractEvent,
-	player\PlayerBucketEmptyEvent,
+	player\PlayerBucketEmptyEvent
 };
 use pocketmine\level\particle\DestroyBlockParticle;
 use pocketmine\level\Position;
