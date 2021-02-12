@@ -64,28 +64,16 @@ class Core extends PluginBase implements Listener{
             }
         }
 	}
-    /**
-     * @param PlayerJoinEvent $event
-     * @priority LOW
-     */
     public function Join(PlayerJoinEvent $event){
         $name = $event->getPlayer()->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
 		$player = $event->getPlayer();
 		$player->setGamemode(1);
     }
-    /**
-     * @param PlayerQuitEvent $event
-     * @priority LOW
-     */
     public function Leave(PlayerQuitEvent $event){
         $name = $event->getPlayer()->getName();
         $event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
     }
-    /**
-     * @param PlayerDeathEvent $event
-     * @priority HIGH
-     */
     public function Death(PlayerDeathEvent $event) : bool{
         if(!$event->getPlayer()->hasPermission("core.lightning.use")){
             return false;
