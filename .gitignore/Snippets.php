@@ -56,3 +56,13 @@
 
         return $msg;
     }
+
+
+    public function Explode(EntityExplodeEvent $event){
+        $entity = $event->getEntity();
+        if($entity instanceof PrimedTNT){
+            $event->setCancelled(true);
+        }else{
+            $event->setCancelled(false);
+        }
+    }
