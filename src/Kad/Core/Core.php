@@ -22,6 +22,7 @@ use pocketmine\entity\{
 use pocketmine\event\{
 	Listener,
 	block\LeavesDecayEvent,
+	block\BlockBurnEvent,
 	entity\EntityExplodeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerDeathEvent,
@@ -104,6 +105,9 @@ class Core extends PluginBase implements Listener{
 		$event->setCancelled(true);
 	}
 	public function Explode(EntityExplodeEvent $event){
+		$event->setCancelled(true);
+	}
+	public function Burn(BlockBurnEvent $event){
 		$event->setCancelled(true);
 	}
     public function Lightning(Player $player) : void{
