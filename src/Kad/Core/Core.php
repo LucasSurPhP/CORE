@@ -22,7 +22,6 @@ use pocketmine\entity\{
 use pocketmine\event\{
 	Listener,
 	block\LeavesDecayEvent,
-	entity\EntityLevelChangeEvent,
 	entity\EntityExplodeEvent,
 	player\PlayerJoinEvent,
 	player\PlayerDeathEvent,
