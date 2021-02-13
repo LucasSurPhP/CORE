@@ -57,7 +57,7 @@ class Core extends PluginBase implements Listener{
 	/** @var array $signText */
 	protected $signText = [];
 
-    public function onEnable(){
+    public function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
@@ -65,22 +65,20 @@ class Core extends PluginBase implements Listener{
             }
         }
 	}
-    public function Join(PlayerJoinEvent $event){
+    public function Join(PlayerJoinEvent $event) : void{
         $name = $event->getPlayer()->getName();
 		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
 		$player = $event->getPlayer();
 		$player->setGamemode(1);
     }
-    public function Leave(PlayerQuitEvent $event){
+    public function Leave(PlayerQuitEvent $event) : void{
         $name = $event->getPlayer()->getName();
         $event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
     }
-    public function Death(PlayerDeathEvent $event) : bool{
-        if(!$event->getPlayer()->hasPermission("core.lightning.use")){
-            return false;
-        }
-        $this->Lightning($event->getPlayer());
-        return true;
+    public function Death(PlayerDeathEvent $event) : void{
+		if($event->getPlayer()->hasPermission("core.lightning.use")){
+			$this->Lightning($event->getPlayer());
+		}
     }
 	public function Interact(PlayerInteractEvent $event) : void{
 		$player = $event->getPlayer();
@@ -98,16 +96,16 @@ class Core extends PluginBase implements Listener{
 	 * @param LeavesDecayEvent $event
 	 * @priority HIGHEST
 	 */
-	public function Decay(LeavesDecayEvent $event){
+	public function Decay(LeavesDecayEvent $event) : void{
 		$event->setCancelled(true);
 	}
-	public function Empty(PlayerBucketEmptyEvent $event){
+	public function Empty(PlayerBucketEmptyEvent $event) : void{
 		$event->setCancelled(true);
 	}
-	public function Explode(EntityExplodeEvent $event){
+	public function Explode(EntityExplodeEvent $event) : void{
 		$event->setCancelled(true);
 	}
-	public function Burn(BlockBurnEvent $event){
+	public function Burn(BlockBurnEvent $event) : void{
 		$event->setCancelled(true);
 	}
     public function Lightning(Player $player) : void{
