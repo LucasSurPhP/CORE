@@ -17,7 +17,11 @@ use pocketmine\command\{
 use pocketmine\entity\{
     Entity,
     Effect,
-    EffectInstance
+    EffectInstance,
+	Creature,
+	Human,
+	object\ExperienceOrb,
+	object\ItemEntity
 };
 use pocketmine\event\{
 	Listener,
@@ -43,6 +47,7 @@ use pocketmine\network\mcpe\protocol\{
 };
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\scheduler\ClosureTask;
 
 use function array_diff;
 use function scandir;
@@ -64,6 +69,21 @@ class Core extends PluginBase implements Listener{
 
     public function onEnable() : void{
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+		$this->getScheduler()->scheduleRepeatingTask(new ClosureTask(
+			function(int $currentTick){
+				foreach($this->getServer()->getLevels() as $level){
+					foreach($level->getEntities() as $entity){
+						if($entity instanceof ItemEntity){
+							$entity->flagForDespawn();
+						}elseif($entity instanceof Creature && !$entity instanceof Human){
+							$entity->flagForDespawn();
+						}elseif($entity instanceof ExperienceOrb){
+							$entity->flagForDespawn();
+						}
+					}
+				}
+			}
+		 ), 60 * 20);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
