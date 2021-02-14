@@ -63,7 +63,7 @@ class Core extends PluginBase implements Listener{
 
     public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->getScheduler()->scheduleRepeatingTask(new EntityClearTask(), 60 * 20);
+		$this->getScheduler()->scheduleRepeatingTask(new EntityClearTask($this), 20 * 60);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
             if($this->getServer()->loadLevel($levelName)){
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
