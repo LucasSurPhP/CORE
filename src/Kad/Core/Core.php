@@ -62,7 +62,7 @@ class Core extends PluginBase implements Listener{
 	/** @var array $signText */
 	protected $signText = [];
 
-    public function onEnable() : void{
+    public function onEnable(){
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getScheduler()->scheduleRepeatingTask(new ClosureTask(
 			function(int $currentTick){
