@@ -30,11 +30,11 @@ use pocketmine\event\{
 	player\PlayerInteractEvent,
 	player\PlayerBucketEmptyEvent
 };
-use pocketmine\level\particle\DestroyBlockParticle;
-use pocketmine\level\Position;
-use pocketmine\level\sound\{
-	EndermanTeleportSound,
-	GhastShootSound
+use pocketmine\level\{
+	Position,
+	particle\DestroyBlockParticle,
+	sound\EndermanTeleportSound,
+	sound\GhastShootSound
 };
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\{
@@ -46,6 +46,11 @@ use pocketmine\utils\TextFormat as TF;
 
 use function array_diff;
 use function scandir;
+use function strtolower;
+use function isset;
+use function unset;
+use function floor;
+use function microtime;
 
 class Core extends PluginBase implements Listener{
 
