@@ -44,10 +44,10 @@ class Core extends PluginBase{
 	public $cfg;
 
 	/** @var array $signLines */
-	protected $signLines = [];
+	public $signLines = [];
 
 	/** @var array $signText */
-	protected $signText = [];
+	public $signText = [];
 
     public function onEnable(){
 		@mkdir($this->getDataFolder());
