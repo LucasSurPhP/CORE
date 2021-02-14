@@ -49,6 +49,9 @@ class Core extends PluginBase{
 	/** @var array $signText */
 	public $signText = [];
 
+	/** @var array $seeMessages */
+	public $seeMessages = [];
+
     public function onEnable(){
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
@@ -108,6 +111,17 @@ class Core extends PluginBase{
 			$str = str_replace("{" . $key . "}", $value, $str);
 		}
 		return $str;
+	}
+	public function isSeeMessages(Player $player) : bool{
+		return isset($this->seeMessages[$player->getLowerCaseName()]);
+	}
+	public function setSeeMessages(Player $player){
+		$this->seeMessages[$player->getLowerCaseName()] = true;
+		$player->sendMessage($this->mch . TF::GREEN . " You have disabled seeing the rotating messages. Do /tm to re-enable them.");
+	}
+	public function unsetSeeMessages(Player $player){
+		unset($this->seeMessages[$player->getLowerCaseName()]);
+		$player->sendMessage($this->mch . TF::GREEN . " You have enabled seeing the rotating messages. Do /tm to disable them.");
 	}
     public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args ) :bool
     {
@@ -319,6 +333,13 @@ class Core extends PluginBase{
         		$sender->sendMessage($this->mch . TF::GREEN . "Playtime: " . $uptime);
 			}else{
 				$sender->sendMessage("The console is immortal. To measure it's playtime would be impossible.");
+			}
+		}
+		if(strtolower($cmd->getName()) == "togglemessages"){
+			if($this->isSeeMessages($sender)){
+				$this->unsetSeeMessages($sender);
+			}else{
+				$this->setSeeMessages($sender);
 			}
 		}
         # All commands after this will likely need modifications more than once.

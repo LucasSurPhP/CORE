@@ -25,8 +25,12 @@ class BroadcastTask extends Task{
         $messages = $this->plugin->cfg["message-broadcast"]["messages"];
         back:
         if($this->i < count($messages)){
-            $this->plugin->getServer()->broadcastMessage(TF::colorize($this->plugin->formatMessage($messages[$this->i])));
-            $this->i++;
+            foreach($this->plugin->getServer()->getOnlinePlayers() as $p){
+                if(!$this->plugin->isSeeMessages($p)){
+                    $p->sendMessage(TF::colorize($this->plugin->formatMessage($messages[$this->i])));
+                    $this->i++;
+                } 
+            }
         }else{
             $this->i = 0;
             goto back;
