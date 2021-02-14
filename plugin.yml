@@ -46,6 +46,9 @@ commands:
   playtime:
     description: Shows how much you've played on the server
     aliases: ["pt", "playt"]
+  togglemessages:
+    description: Allows toggling the rotating messages on/off
+    aliases: ["tm"]
   hub:
     description: Teleports you to the Hub
     aliases: ["lobby","spawn"]
