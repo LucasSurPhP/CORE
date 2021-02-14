@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Core\Tasks;
 
 use pocketmine\scheduler\Task;
-use pocketmine\util\TextFormat as TF;
+use pocketmine\utils\TextFormat as TF;
 
 use Core\Core;
 
@@ -22,7 +22,7 @@ class BroadcastTask extends Task{
             $this->i = 0;
     }
     public function onRun(int $currentTick){
-        $messages = $this->plugin->config["message-broadcast"]["messages"];
+        $messages = $this->plugin->cfg["message-broadcast"]["messages"];
         back:
         if($this->i < count($messages)){
             $this->plugin->getServer()->broadcastMessage(TF::colorize($this->plugin->formatMessage($messages[$this->i])));

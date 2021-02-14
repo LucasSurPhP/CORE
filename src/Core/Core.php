@@ -67,7 +67,7 @@ class Core extends PluginBase implements Listener{
     public function onEnable(){
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
-		$this->config = $this->getConfig()->getAll();
+		$this->cfg = $this->getConfig()->getAll();
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
