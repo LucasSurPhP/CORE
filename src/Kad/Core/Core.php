@@ -51,11 +51,6 @@ use pocketmine\scheduler\ClosureTask;
 
 use function array_diff;
 use function scandir;
-use function strtolower;
-use function isset;
-use function unset;
-use function floor;
-use function microtime;
 
 class Core extends PluginBase implements Listener{
 
