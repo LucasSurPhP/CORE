@@ -17,22 +17,7 @@ use pocketmine\command\{
 use pocketmine\entity\{
     Entity,
     Effect,
-    EffectInstance,
-	Creature,
-	Human,
-	object\ExperienceOrb,
-	object\ItemEntity
-};
-use pocketmine\event\{
-	Listener,
-	block\LeavesDecayEvent,
-	block\BlockBurnEvent,
-	entity\EntityExplodeEvent,
-	player\PlayerJoinEvent,
-	player\PlayerDeathEvent,
-	player\PlayerQuitEvent,
-	player\PlayerInteractEvent,
-	player\PlayerBucketEmptyEvent
+    EffectInstance
 };
 use pocketmine\level\{
 	Position,
@@ -68,7 +53,8 @@ class Core extends PluginBase implements Listener{
 		@mkdir($this->getDataFolder());
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig()->getAll();
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getServer()->getPluginManager()->registerEvents(new Events\CoreEvents($this), $this);
+		$this->getServer()->getPluginManager()->registerEvents(new Events\GriefPrevention($this), $this);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\EntityClearTask($this), 20 * 60);
 		$this->getScheduler()->scheduleRepeatingTask(new Tasks\BroadcastTask($this), 20 * 120);
         foreach(array_diff(scandir($this->getServer()->getDataPath() . "worlds"), ["..", "."]) as $levelName){
@@ -76,49 +62,6 @@ class Core extends PluginBase implements Listener{
                 $this->getLogger()->debug("Successfully loaded §6${levelName}");
             }
         }
-	}
-    public function Join(PlayerJoinEvent $event) : void{
-        $name = $event->getPlayer()->getName();
-		$event->setJoinMessage("§7[§b§l+§r§7]§r§f " . "$name");
-		$player = $event->getPlayer();
-		$player->setGamemode(1);
-    }
-    public function Leave(PlayerQuitEvent $event) : void{
-        $name = $event->getPlayer()->getName();
-        $event->setQuitMessage("§7[§c§l-§r§7]§r§f " . "$name");
-    }
-    public function Death(PlayerDeathEvent $event) : void{
-		if($event->getPlayer()->hasPermission("core.lightning.use")){
-			$this->Lightning($event->getPlayer());
-		}
-    }
-	public function Interact(PlayerInteractEvent $event) : void{
-		$player = $event->getPlayer();
-		$tile = $event->getPlayer()->getLevel()->getTile($event->getBlock());
-		if($tile instanceof Sign){
-			if(isset($this->signLines[$player->getName()]) && isset($this->signText[$player->getName()])){
-				$tile->setLine($this->signLines[$player->getName()], $this->signText[$player->getName()]);
-				$player->sendMessage($this->mch . TF::GREEN . " You have successfully set line #" . strval($this->signLines[$player->getName()] + 1) . " of this sign");
-				unset($this->signLines[$player->getName()]);
-				unset($this->signText[$player->getName()]);
-			}
-		}
-	}
-	/**
-	 * @param LeavesDecayEvent $event
-	 * @priority HIGHEST
-	 */
-	public function Decay(LeavesDecayEvent $event) : void{
-		$event->setCancelled(true);
-	}
-	public function Empty(PlayerBucketEmptyEvent $event) : void{
-		$event->setCancelled(true);
-	}
-	public function Explode(EntityExplodeEvent $event) : void{
-		$event->setCancelled(true);
-	}
-	public function Burn(BlockBurnEvent $event) : void{
-		$event->setCancelled(true);
 	}
     public function Lightning(Player $player) : void{
         $light = new AddActorPacket();
