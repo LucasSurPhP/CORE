@@ -24,7 +24,7 @@ use Core\Core;
 class CoreEvents implements Listener{
 
     /** @var Core $plugin */
-    private $plugin
+    private $plugin;
 
     public function __construct(Core $plugin){
         $this->plugin = $plugin;
