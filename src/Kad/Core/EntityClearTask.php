@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 namespace Kad\Core;
 
+use pocketmine\{
+    Player,
+    Server
+};
+use pocketmine\entity\{
+    Entity,
+	Creature,
+	Human,
+	object\ExperienceOrb,
+	object\ItemEntity
+};
 use pocketmine\scheduler\Task;
 
 class EntityClearTask extends Task {
