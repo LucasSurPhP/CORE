@@ -36,7 +36,7 @@ use pocketmine\utils\TextFormat as TF;
 use function array_diff;
 use function scandir;
 
-class Core extends PluginBase implements Listener{
+class Core extends PluginBase{
 
 	public $mch = "§7[§4§lK§r§7]§r";
 	
