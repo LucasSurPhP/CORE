@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Kad\Core;
 
-use pocketmine\{
-    Player,
-    Server
-};
+use pocketmine\Server;
 use pocketmine\entity\{
     Entity,
 	Creature,
@@ -19,8 +16,13 @@ use pocketmine\scheduler\Task;
 
 class EntityClearTask extends Task {
 
+    private $plugin;
+
+    public function __construct(Core $plugin){
+        $this->plugin = $plugin;
+    }
     public function onRun(int $tick) : void{
-        foreach($this->getServer()->getLevels() as $level){
+        foreach($this->plugin->getServer()->getLevels() as $level){
             foreach($level->getEntities() as $entity){
                 if($entity instanceof ItemEntity){
                     $entity->flagForDespawn();
